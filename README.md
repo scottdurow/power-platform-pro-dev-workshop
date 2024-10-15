@@ -1,10 +1,17 @@
 
 
 # 🚀Welcome to the Power Platform Developer Workshop Repo!
-
-👉 [Workshop Starter Solution](./WorkshopStarterSolution/) 
+This repo contains everything you need to complete the Power Platform Pro-Dev Workshop lab exercises.
 
 👉 [Lab Prerequisites](./Labs/Lab%20Prerequisites.md) 
+
+## Lab Starter Solution
+Download the following folder files and place on your local machine in `C:\WorkshopStarterSolution`
+
+📦 [Workshop Starter Solution](./WorkshopStarterSolution/) 
+
+## Lab instructions
+You can find the lab instructions below:
 
 👉 [Lab 1 - TypeScript Webresources](./Labs/Lab%201%20-%20TypeScript%20Webresources.md) 
 
