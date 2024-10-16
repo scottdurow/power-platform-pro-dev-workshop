@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebResource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <WebResourceId>{49318710-db64-ef11-bfe2-000d3a5d1d92}</WebResourceId>
+  <Name>contoso_/portal-admin/mda-client-hooks.js</Name>
+  <DisplayName>Listings Admin App Client Hooks Scripts</DisplayName>
+  <LanguageCode>0</LanguageCode>
+  <WebResourceType>3</WebResourceType>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsEnabledForMobileClient>0</IsEnabledForMobileClient>
+  <IsAvailableForMobileOffline>0</IsAvailableForMobileOffline>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <IsHidden>0</IsHidden>
+  <FileName>/WebResources/contoso_portal-adminmda-client-hooksjs49318710-DB64-EF11-BFE2-000D3A5D1D92</FileName>
+</WebResource>

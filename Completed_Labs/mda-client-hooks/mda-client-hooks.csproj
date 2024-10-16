@@ -1,0 +1,20 @@
+<Project ToolsVersion="Current" DefaultTargets="Build">
+
+    <PropertyGroup>
+      <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    </PropertyGroup>
+  
+    <!-- Prevent Csc from being called -->
+    <Target Name="CoreCompile" />
+    <Target Name="GetProjectOutputPath"/>
+    <Target Name="CopyFilesToOutputDirectory"/>
+    
+  
+    <Target Name="Build" AfterTargets="GetProjectOutputPath">
+      <Exec Command="npm ci" Condition="'$(Configuration)' == 'Debug'"/>
+      <Exec Command="npm install" Condition="'$(Configuration)' == 'Release'"/>
+      <Exec Command="npm run build:dev " Condition="'$(Configuration)' == 'Debug'"/>
+      <Exec Command="npm run build:prod" Condition="'$(Configuration)' == 'Release'"/>
+    </Target>
+  
+  </Project>

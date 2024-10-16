@@ -1,0 +1,13 @@
+{
+  "entities": [
+    "contoso_listing"
+  ],
+  "actions": [],
+  "functions": [],
+  "generateIndex": true,
+  "generateFormContext": true,
+  "generateEntityTypes": false,
+  "output": {
+    "outputRoot": "./src/dataverse-gen"
+  }
+}

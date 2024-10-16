@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Mapping>
+    <FileToFile map="ContosoRealEstateBusinessLogic.dll" to="../../../../../ContosoRealEstateBusinessLogic/bin/publish/ContosoRealEstate.BusinessLogic.dll" />
+    <FileToFile map="mda-client-hooks.js" to="../../../../../mda-client-hooks/dist/ClientHooks.js" /> 
+</Mapping>

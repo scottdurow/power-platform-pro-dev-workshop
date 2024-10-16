@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebResource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <WebResourceId>{824e7c7c-803d-ef11-8409-0022480bc9e8}</WebResourceId>
+  <Name>contoso_IconListingReservation</Name>
+  <DisplayName>Icon Listing Reservation</DisplayName>
+  <WebResourceType>11</WebResourceType>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsEnabledForMobileClient>1</IsEnabledForMobileClient>
+  <IsAvailableForMobileOffline>1</IsAvailableForMobileOffline>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <IsHidden>0</IsHidden>
+  <FileName>/WebResources/contoso_IconListingReservation824E7C7C-803D-EF11-8409-0022480BC9E8</FileName>
+</WebResource>

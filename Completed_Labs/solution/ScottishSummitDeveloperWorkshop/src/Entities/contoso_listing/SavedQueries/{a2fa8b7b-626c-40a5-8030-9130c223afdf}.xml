@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>1</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{a2fa8b7b-626c-40a5-8030-9130c223afdf}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="contoso_name" select="1" icon="1" preview="1">
+        <row name="result" id="contoso_listingid">
+          <cell name="contoso_name" width="300" />
+          <cell name="createdon" width="125" />
+          <cell name="contoso_listingid1" width="150" />
+          <cell name="contoso_address" width="150" />
+          <cell name="contoso_pricepermonth" width="150" />
+          <cell name="contoso_features" width="150" />
+          <cell name="contoso_displayname" width="150" />
+          <cell name="contoso_description" width="150" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>4</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="contoso_listing">
+          <attribute name="contoso_listingid" />
+          <attribute name="contoso_name" />
+          <attribute name="createdon" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <filter type="or" isquickfindfields="1">
+            <condition attribute="contoso_name" operator="like" value="{0}" />
+            <condition attribute="contoso_listingid1" operator="like" value="{0}" />
+          </filter>
+          <attribute name="contoso_listingid1" />
+          <attribute name="contoso_address" />
+          <attribute name="contoso_pricepermonth" />
+          <attribute name="contoso_features" />
+          <attribute name="contoso_displayname" />
+          <attribute name="contoso_description" />
+          <order attribute="contoso_name" descending="false" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Quick Find Active Listings" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

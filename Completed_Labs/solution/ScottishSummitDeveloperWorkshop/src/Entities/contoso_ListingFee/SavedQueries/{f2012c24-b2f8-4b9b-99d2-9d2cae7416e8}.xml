@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{f2012c24-b2f8-4b9b-99d2-9d2cae7416e8}</savedqueryid>
+    <layoutxml>
+      <grid name="contoso_listingfees" jump="contoso_fee" select="1" icon="1" preview="1">
+        <row name="contoso_listingfee" id="contoso_listingfeeid">
+          <cell name="contoso_fee" width="300" />
+          <cell name="createdon" width="125" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>2</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="contoso_listingfee">
+          <attribute name="contoso_listingfeeid" />
+          <attribute name="contoso_fee" />
+          <attribute name="createdon" />
+          <order attribute="contoso_fee" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Listing Fee Associated View" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

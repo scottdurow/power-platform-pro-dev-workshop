@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SdkMessageProcessingStep Name="ContosoRealEstateBusinessLogic.ReservationOnCreatePreValidation: Create of contoso_reservation" SdkMessageProcessingStepId="{8fe0d413-7287-ef11-ac20-7c1e524859a4}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SdkMessageId>9ebdbb1b-ea3e-db11-86a7-000a3a5473e8</SdkMessageId>
+  <PluginTypeName>ContosoRealEstateBusinessLogic.ReservationOnCreatePreValidation, ContosoRealEstateBusinessLogic, Version=1.0.0.0, Culture=neutral, PublicKeyToken=dd733ef76f012206</PluginTypeName>
+  <PluginTypeId>f01c0404-f460-4d91-820d-4e50d5885948</PluginTypeId>
+  <PrimaryEntity>contoso_reservation</PrimaryEntity>
+  <AsyncAutoDelete>0</AsyncAutoDelete>
+  <Description>ContosoRealEstateBusinessLogic.ReservationOnCreatePreValidation: Create of contoso_reservation</Description>
+  <FilteringAttributes></FilteringAttributes>
+  <InvocationSource>0</InvocationSource>
+  <Mode>0</Mode>
+  <Rank>1</Rank>
+  <EventHandlerTypeCode>4602</EventHandlerTypeCode>
+  <Stage>10</Stage>
+  <IsCustomizable>1</IsCustomizable>
+  <IsHidden>0</IsHidden>
+  <SupportedDeployment>0</SupportedDeployment>
+  <IntroducedVersion>1.0</IntroducedVersion>
+  <SdkMessageProcessingStepImages />
+</SdkMessageProcessingStep>

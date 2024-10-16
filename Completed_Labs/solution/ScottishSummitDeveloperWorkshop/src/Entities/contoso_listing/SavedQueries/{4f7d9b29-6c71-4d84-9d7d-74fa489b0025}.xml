@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{4f7d9b29-6c71-4d84-9d7d-74fa489b0025}</savedqueryid>
+    <layoutxml>
+      <grid name="contoso_listings" jump="contoso_name" select="1" icon="1" preview="1">
+        <row name="contoso_listing" id="contoso_listingid">
+          <cell name="contoso_name" width="300" />
+          <cell name="createdon" width="125" />
+          <cell name="contoso_listingid1" width="150" />
+          <cell name="contoso_address" width="150" />
+          <cell name="contoso_pricepermonth" width="150" />
+          <cell name="contoso_features" width="150" />
+          <cell name="contoso_displayname" width="150" />
+          <cell name="contoso_description" width="150" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>2</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="contoso_listing">
+          <attribute name="contoso_listingid" />
+          <attribute name="contoso_name" />
+          <attribute name="createdon" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <attribute name="contoso_listingid1" />
+          <attribute name="contoso_address" />
+          <attribute name="contoso_pricepermonth" />
+          <attribute name="contoso_features" />
+          <attribute name="contoso_displayname" />
+          <attribute name="contoso_description" />
+          <order attribute="contoso_name" descending="false" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Listing Associated View" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

@@ -1,0 +1,80 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "WeatherForecast_Connector",
+    "version": "v1"
+  },
+  "paths": {
+    "/WeatherForecast": {
+      "get": {
+        "tags": [
+          "Weather"
+        ],
+        "summary": "Get Weather Forecast",
+        "description": "Get a weather forecast for a specified city",
+        "operationId": "GetWeatherForecast",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "City",
+            "description": "The city to get the forecast for",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ForecastResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ForecastResponse": {
+      "type": "object",
+      "properties": {
+        "weatherForecast": {
+          "description": "The weather forecast",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WeatherForecast"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "WeatherForecast": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "format": "date",
+          "description": "The date of the forecast",
+          "type": "string"
+        },
+        "temperatureC": {
+          "format": "int32",
+          "description": "The temperature in Celsius",
+          "type": "integer"
+        },
+        "summary": {
+          "description": "A summary of the weather conditions",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "host": "1z6dt8lp-7081.usw2.devtunnels.ms",
+  "schemes": [
+    "https"
+  ]
+}

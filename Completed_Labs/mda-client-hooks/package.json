@@ -1,0 +1,38 @@
+{
+  "name": "mda-client-hooks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "npm run lint -- --fix",
+    "build": "webpack --mode=production --define-process-env-node-env=production",
+    "build:dev": "npm run lint & webpack --mode=development & npm run test",
+    "build:prod": "npm run lint & webpack --mode=production --define-process-env-node-env=production & npm run test",
+    "watch": "webpack --watch",
+    "test": "jest unit. --collectCoverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@microsoft/eslint-plugin-power-apps": "^0.2.51",
+    "@types/jest": "^29.5.13",
+    "@types/xrm": "^9.0.81",
+    "@typescript-eslint/eslint-plugin": "^8.8.1",
+    "@typescript-eslint/parser": "^8.8.1",
+    "@webpack-cli/generators": "^3.0.7",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-promise": "^7.1.0",
+    "prettier": "3.3.3",
+    "ts-jest": "^29.2.5",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.6.3",
+    "webpack": "^5.95.0",
+    "webpack-cli": "^5.1.4",
+    "xrm-mock": "^3.6.1"
+  }
+}

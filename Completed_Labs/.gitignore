@@ -1,0 +1,56 @@
+# TypeScript
+node_modules/
+dist/
+out/
+*.log
+*.tsbuildinfo
+
+# Visual Studio
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+packages/
+
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio Code
+.vs/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# VS Code directories
+.vscode/
+.history/
+
+# Local History for Visual Studio
+.localhistory/
+
+# Windows shortcuts
+*.lnk
+
+# Test results
+TestResults/
+coverage/

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>1</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{5322f117-ed1f-4d72-b255-970e6a5e2304}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="contoso_fee" select="1" icon="1" preview="1">
+        <row name="result" id="contoso_listingfeeid">
+          <cell name="contoso_fee" width="300" />
+          <cell name="createdon" width="125" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>4</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="contoso_listingfee">
+          <attribute name="contoso_listingfeeid" />
+          <attribute name="contoso_fee" />
+          <attribute name="createdon" />
+          <order attribute="contoso_fee" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <filter type="or" isquickfindfields="1">
+            <condition attribute="contoso_fee" operator="like" value="{0}" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Quick Find Active Listing Fees" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

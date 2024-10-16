@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{98ed897f-3967-4a0b-a194-587f690caccb}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="contoso_name" select="1" icon="1" preview="1">
+        <row name="result" id="contoso_reservationid">
+          <cell name="contoso_reservationdate" width="137" />
+          <cell name="contoso_reservationstatus" width="163" />
+          <cell name="contoso_customer" width="284" />
+          <cell name="contoso_guests" width="100" />
+          <cell name="contoso_from" width="100" />
+          <cell name="contoso_to" width="100" />
+          <cell name="contoso_amount" width="100" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="contoso_reservation">
+          <attribute name="contoso_reservationid" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <attribute name="contoso_reservationstatus" />
+          <attribute name="contoso_reservationdate" />
+          <attribute name="contoso_guests" />
+          <attribute name="contoso_customer" />
+          <attribute name="contoso_from" />
+          <attribute name="contoso_to" />
+          <order attribute="contoso_reservationdate" descending="true" />
+          <attribute name="contoso_amount" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active Reservations" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

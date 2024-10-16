@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebResource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <WebResourceId>{69047b60-5dfb-ee11-a1fe-6045bd05a326}</WebResourceId>
+  <Name>contoso_IconListing</Name>
+  <DisplayName>Icon Listing</DisplayName>
+  <LanguageCode>0</LanguageCode>
+  <WebResourceType>11</WebResourceType>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsEnabledForMobileClient>0</IsEnabledForMobileClient>
+  <IsAvailableForMobileOffline>0</IsAvailableForMobileOffline>
+  <IsCustomizable>1</IsCustomizable>
+  <CanBeDeleted>1</CanBeDeleted>
+  <IsHidden>0</IsHidden>
+  <FileName>/WebResources/contoso_IconListing69047B60-5DFB-EE11-A1FE-6045BD05A326</FileName>
+</WebResource>

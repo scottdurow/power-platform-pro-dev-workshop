@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "CustomConnector": {
+      "connectionInfo": "Custom Connector: WeatherForecast_Connector (Environment: Scott Durow - Scottish Summit Workshop)",
+      "connectorName": "WeatherForecast_Connector",
+      "environmentUrl": "https://orgc4b7978c.crm.dynamics.com/",
+      "environmentId": "629b15a3-2d78-e2fd-8106-bc22aa5ec716",
+      "type": "powerplatform.local"
+    }
+  }
+}

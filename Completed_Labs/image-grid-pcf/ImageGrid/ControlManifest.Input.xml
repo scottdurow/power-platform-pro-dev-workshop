@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest>
+  <control namespace="Contoso" constructor="ImageGrid" version="0.0.1" display-name-key="ImageGrid" description-key="ImageGrid description" control-type="virtual" >
+    <!--external-service-usage node declares whether this 3rd party PCF control is using external service or not, if yes, this control will be considered as premium and please also add the external domain it is using.
+    If it is not using any external service, please set the enabled="false" and DO NOT add any domain below. The "enabled" will be false by default.
+    Example1:
+      <external-service-usage enabled="true">
+        <domain>www.Microsoft.com</domain>
+      </external-service-usage>
+    Example2:
+      <external-service-usage enabled="false">
+      </external-service-usage>
+    -->
+    <external-service-usage enabled="false">
+      <!--UNCOMMENT TO ADD EXTERNAL DOMAINS
+      <domain></domain>
+      <domain></domain>
+      -->
+    </external-service-usage>
+    <!-- dataset node represents a set of entity records on CDS; allow more than one datasets -->
+    <data-set name="Images" display-name-key="Images">
+      <property-set name="ImageName"
+                    display-name-key="ImageName"
+                    of-type="SingleLine.Text"
+                    usage="bound"
+                    required="true" />
+      <property-set name="ImageContent"
+                    display-name-key="ImageContent"
+                    of-type="SingleLine.Text"
+                    usage="bound"
+                    required="false" />
+    </data-set>
+    <!-- Property to store the overridden height in a model driven form -->
+    <property name="SubGridHeight" display-name-key="Sub Grid Height for Model Driven Forms" of-type="Whole.None" usage="input" required="false" />
+    <resources>
+      <code path="index.ts" order="1"/>
+      <css path="image-grid.css" order="1" />
+      <platform-library name="React" version="16.8.6" />
+    </resources>
+    <!-- UNCOMMENT TO ENABLE THE SPECIFIED API
+    <feature-usage>
+      <uses-feature name="Device.captureAudio" required="true" />
+      <uses-feature name="Device.captureImage" required="true" />
+      <uses-feature name="Device.captureVideo" required="true" />
+      <uses-feature name="Device.getBarcodeValue" required="true" />
+      <uses-feature name="Device.getCurrentPosition" required="true" />
+      <uses-feature name="Device.pickFile" required="true" />
+      <uses-feature name="Utility" required="true" />
+      <uses-feature name="WebAPI" required="true" />
+    </feature-usage>
+    -->
+  </control>
+</manifest>

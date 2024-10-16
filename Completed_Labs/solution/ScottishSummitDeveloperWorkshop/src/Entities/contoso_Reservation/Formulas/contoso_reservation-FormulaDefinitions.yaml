@@ -1,0 +1,1 @@
+contoso_nights: =DateDiff(contoso_from,contoso_to)

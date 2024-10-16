@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{aff7b9cf-5e55-474a-befe-600628b00f18}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form headerdensity="HighWithControls">
+      <tabs>
+        <tab verticallayout="true" id="{0d426161-093e-4497-961e-f8421a45eb84}" IsUserDefined="1">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{d132d6b1-0d09-4512-97d0-a78a3f35736b}">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{294f765e-eabd-4a43-a9cf-b7a92a657058}" visible="false">
+                        <labels>
+                          <label description="Fee" languagecode="1033" />
+                        </labels>
+                        <control id="contoso_fee" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="contoso_fee" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{e0a497ef-87aa-40dc-a5a4-cde7071d47e5}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Fee Type" languagecode="1033" />
+                        </labels>
+                        <control id="contoso_feetype" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="contoso_feetype" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{2fa47fc0-f067-4ce5-8713-08293b10864d}">
+                        <labels>
+                          <label description="Fee Amount" languagecode="1033" />
+                        </labels>
+                        <control id="contoso_feeamount" classid="{533b9e00-756b-4312-95a0-dc888637ac78}" datafieldname="contoso_feeamount" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{a597e665-2a02-4629-88af-0e4123558269}">
+                        <labels>
+                          <label description="Per Guest" languagecode="1033" />
+                        </labels>
+                        <control id="contoso_perguest" classid="{67fac785-cd58-4f9f-abb3-4b7ddc6ed5ed}" datafieldname="contoso_perguest" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <header id="{39b17ea9-2b5e-4200-81c5-c91187c676ca}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{19391068-63ab-4a2b-86f4-f0069cc74694}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{63c997f7-5c3a-4aa1-8dd1-b0963ae52fab}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{4abf63f4-a214-46e5-b4d1-ef2278d1eaa8}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{00ed859e-b471-4f44-bd20-5432e45426c2}" locklevel="0" colspan="1" rowspan="1">
+              <labels>
+                <label description="Listing" languagecode="1033" />
+              </labels>
+              <control id="header_contoso_listing" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="contoso_listing" disabled="true" />
+            </cell>
+            <cell id="{a888c267-2a76-4b3b-82d0-c464bba0a118}" colspan="1" rowspan="1">
+              <labels>
+                <label description="Owner" languagecode="1033" />
+              </labels>
+              <control id="header_ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{04fd113c-2e22-4ceb-a6d3-4b6ea9d4e8ce}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{3b755f91-3750-4fb3-838a-c7b68150f8c9}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{a4d5fe0b-5cfb-42dc-93ef-a4c3e970c2a7}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{3cfb454f-d7d1-4dbe-9884-32afc06d9986}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>
