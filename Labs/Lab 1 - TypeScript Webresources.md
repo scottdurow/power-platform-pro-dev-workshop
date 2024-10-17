@@ -28,7 +28,7 @@ Using the `ts-loader` webpack plugin will run the tsc compiler for you so that a
 
     ```
     mkdir c:\workshop\mda-client-hooks
-    cd c:\workshop2\mda-client-hooks
+    cd c:\workshop\mda-client-hooks
     code . -r
     ```
 
@@ -223,6 +223,7 @@ One of the challenges with writing TypeScript code for Model Driven Apps, is tha
 
 1. At the command line, type:
    ```powershell
+   npm install dataverse-auth@2 -g
    npx dataverse-auth@2 https://yourorg.crm.dynamics.com device-code
    ```
 
