@@ -598,7 +598,7 @@ npm start watch
 
 2. If you make changes to any of these files, you'll see a `Change detected` message and the browser will reload with the updated code.
 
-2. In the far right panel, under Data Inputs -> **Select a file** -> `C:/WorkshopStarterSolution/SliderImages.csv` (From the lab folder)
+2. In the far right panel, under **Data Inputs** -> **Select a file** -> `C:/WorkshopStarterSolution/SliderImages.csv` (From the lab folder)
 
 2. Select `ImageName` and `ImageContent` in the drop downs and select **Apply**.
 
@@ -760,7 +760,7 @@ Now that you have your code component running inside Canvas Apps, you will likel
 1. Right click on the **refresh** icon and select **Empty cache and hard refresh**.    
      ![Hard Refresh](./assets/hard-refresh.png)
 
-1. In the developer tools Sources tab, use Ctrl + P to open `ImageGridDetail.tsx`.    
+1. In the developer tools Sources tab, use `Ctrl + P` to open `ImageGridDetail.tsx`.    
    ![Open Image Grid Source](./assets/open-image-grid-source.png)
 
 1. You'll notice that the `tsx` looks rather different - this is due to the compiled nature of React code. The React markup is converted into `createElement` statements.    

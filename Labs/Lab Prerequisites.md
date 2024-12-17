@@ -281,7 +281,7 @@ This workshop uses a solution as a starting point. We can import the solution an
 
 1. Inside VS Code, at the PowerShell terminal use:
    ```
-   pac solution import --path "C:\WorkshopStarterSolution\ScottishSummitDeveloperWorkshop_1_0_0_0.zip"  --async  --publish-changes
+   pac solution import --path "C:\WorkshopStarterSolution\PowerPlatformProDeveloperWorkshop_1_0_0_0.zip"  --async  --publish-changes
    ```
 
    Wait for the solution to import and publish.

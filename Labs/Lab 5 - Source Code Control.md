@@ -12,29 +12,29 @@ In Dataverse, you now have a solution that contains the metadata for tables and 
 
 1. Inside **VS Code** at the PowerShell terminal, clone the solution using the following:
    ```powershell
-   pac solution clone --name "ScottishSummitDeveloperWorkshop" --async --packagetype Both --outputDirectory "C:\workshop\solution"
+   pac solution clone --name "PowerPlatformProDeveloperWorkshop" --async --packagetype Both --outputDirectory "C:\workshop\solution"
    
    code c:\workshop -r
    ```
 
-   You will see that the solution has been exported and unpacked into the solution folder. Explore all the folders and see the metadata from the tables and apps. Notice that we selected Both for the package type - this means that the files will allow packing the solution as a managed or unmanaged solution, but it does mean that there will be two versions of the Dataverse table forms - one managed and one unmanaged (e.g. `solution\ScottishSummitDeveloperWorkshop\src\Entities\contoso_listing\FormXml\main\{530bff54-7d3d-ef11-8409-0022480bc9e8}_managed.xml`)
+   You will see that the solution has been exported and unpacked into the solution folder. Explore all the folders and see the metadata from the tables and apps. Notice that we selected Both for the package type - this means that the files will allow packing the solution as a managed or unmanaged solution, but it does mean that there will be two versions of the Dataverse table forms - one managed and one unmanaged (e.g. `solution\PowerPlatformProDeveloperWorkshop\src\Entities\contoso_listing\FormXml\main\{530bff54-7d3d-ef11-8409-0022480bc9e8}_managed.xml`)
 
 1. The solution contains some artefacts that we do not want to commit to source code control:
 
-   1. If you open the folder `solution\ScottishSummitDeveloperWorkshop\src\PluginAssemblies\ContosoRealEstateBusinessLogic-...` you'll see that it contains an assembly. We do not want to commit this to source control since it should always be built from the plugin code.
-   1. If you open the folder `solution\ScottishSummitDeveloperWorkshop\src\WebResources\contoso_\portal-admin` you'll see the JavaScript webresource. This should always be built by the source TypeScript rather than stored in source control.
-   1. If you open the controls folder `solution\ScottishSummitDeveloperWorkshop\src\Controls\contoso_Contoso.ImageGrid` you will see the bundle.js which is the transpiled TypeScript for the PCF component. We don't want to add this to source code control since it will always be built from the latest source.
+   1. If you open the folder `solution\PowerPlatformProDeveloperWorkshop\src\PluginAssemblies\ContosoRealEstateBusinessLogic-...` you'll see that it contains an assembly. We do not want to commit this to source control since it should always be built from the plugin code.
+   1. If you open the folder `solution\PowerPlatformProDeveloperWorkshop\src\WebResources\contoso_\portal-admin` you'll see the JavaScript webresource. This should always be built by the source TypeScript rather than stored in source control.
+   1. If you open the controls folder `solution\PowerPlatformProDeveloperWorkshop\src\Controls\contoso_Contoso.ImageGrid` you will see the bundle.js which is the transpiled TypeScript for the PCF component. We don't want to add this to source code control since it will always be built from the latest source.
 
-1. Notice there is a project file named `ScottishSummitDeveloperWorkshop.cdsproj`. This file allows us to build the solution from it's component parts, but we need to add configuration on how to build the source TypeScript for the Web resource and the PCF, and C# for the Plugin.
+1. Notice there is a project file named `PowerPlatformProDeveloperWorkshop.cdsproj`. This file allows us to build the solution from it's component parts, but we need to add configuration on how to build the source TypeScript for the Web resource and the PCF, and C# for the Plugin.
 
 1. First we add configuration to build the custom control. At the PowerShell terminal in VS Code:
 
    ```
-   cd c:\workshop\solution\ScottishSummitDeveloperWorkshop
+   cd c:\workshop\solution\PowerPlatformProDeveloperWorkshop
    pac solution add-reference --path "C:\workshop\image-grid-pcf\image-grid-pcf.pcfproj"
    ```
 
-1. Open the solution project file at `C:\workshop\solution\ScottishSummitDeveloperWorkshop\ScottishSummitDeveloperWorkshop.cdsproj`
+1. Open the solution project file at `C:\workshop\solution\PowerPlatformProDeveloperWorkshop\PowerPlatformProDeveloperWorkshop.cdsproj`
    Notice how there is now a section:
 
    ```xml
@@ -45,7 +45,7 @@ In Dataverse, you now have a solution that contains the metadata for tables and 
 
    This will result in the pcf control to be built when the solution is built.
 
-1. Because we are build the pcf, we can delete the folder `C:\workshop\solution\ScottishSummitDeveloperWorkshop\src\Controls`
+1. Because we are build the pcf, we can delete the folder `C:\workshop\solution\PowerPlatformProDeveloperWorkshop\src\Controls`
 
 1. Add a file under `mda-client-hooks` named `mda-client-hooks.csproj`
 
@@ -74,7 +74,7 @@ In Dataverse, you now have a solution that contains the metadata for tables and 
 
    This project file will allow us to add the TypeScript transpilation that uses webpack as part of the solution build. You can see that the `npm run build` command is run when **Build** is executed.
 
-1. Now we can add a reference to this project back in the `C:\workshop\solution\ScottishSummitDeveloperWorkshop\ScottishSummitDeveloperWorkshop.cdsproj` underneath the pcf project reference:
+1. Now we can add a reference to this project back in the `C:\workshop\solution\PowerPlatformProDeveloperWorkshop\PowerPlatformProDeveloperWorkshop.cdsproj` underneath the pcf project reference:
    ```xml
      <ItemGroup>
        <ProjectReference Include="..\..\image-grid-pcf\image-grid-pcf.pcfproj" />
@@ -82,7 +82,7 @@ In Dataverse, you now have a solution that contains the metadata for tables and 
      </ItemGroup>
    ```
 
-1. Now we can delete the JavaScript at `solution\ScottishSummitDeveloperWorkshop\src\WebResources\contoso_\portal-admin\mda-client-hooks.js`
+1. Now we can delete the JavaScript at `solution\PowerPlatformProDeveloperWorkshop\src\WebResources\contoso_\portal-admin\mda-client-hooks.js`
 
 1. We can also add a reference to the plugin project by adding:
 
@@ -94,12 +94,12 @@ In Dataverse, you now have a solution that contains the metadata for tables and 
      </ItemGroup>
    ```
 
-1. Now we can delete the Plugin assembly at `solution\ScottishSummitDeveloperWorkshop\src\PluginAssemblies\ContosoRealEstateBusinessLogic-...guid...\ContosoRealEstateBusinessLogic.dll`
+1. Now we can delete the Plugin assembly at `solution\PowerPlatformProDeveloperWorkshop\src\PluginAssemblies\ContosoRealEstateBusinessLogic-...guid...\ContosoRealEstateBusinessLogic.dll`
 
      > [!NOTE]
      > The GUID will be difference in each deployment.
 
-1. The pcf build will automatically be mapped to the solution, however the web resource and plugin need specific configuration using a solution map file. Create a file named `solution-mapping.xml` under the folder `solution\ScottishSummitDeveloperWorkshop`.
+1. The pcf build will automatically be mapped to the solution, however the web resource and plugin need specific configuration using a solution map file. Create a file named `solution-mapping.xml` under the folder `solution\PowerPlatformProDeveloperWorkshop`.
 
     ```xml
     <?xml version="1.0" encoding="utf-8"?>
@@ -109,7 +109,7 @@ In Dataverse, you now have a solution that contains the metadata for tables and 
     </Mapping>
     ```
 
-1. To instruct the solution build process to use this, we must add it to the `C:\workshop\solution\ScottishSummitDeveloperWorkshop\ScottishSummitDeveloperWorkshop.cdsproj`  by adding the following underneath the `<SolutionRootPath>src</SolutionRootPath>` element:
+1. To instruct the solution build process to use this, we must add it to the `C:\workshop\solution\PowerPlatformProDeveloperWorkshop\PowerPlatformProDeveloperWorkshop.cdsproj`  by adding the following underneath the `<SolutionRootPath>src</SolutionRootPath>` element:
 
     ```
     <OutputPath>bin\</OutputPath>
@@ -120,13 +120,13 @@ In Dataverse, you now have a solution that contains the metadata for tables and 
 1. To check that the build process works, you can run the following at the VS Code PowerShell terminal:
 
      ```
-     cd "C:\workshop\solution\ScottishSummitDeveloperWorkshop"
+     cd "C:\workshop\solution\PowerPlatformProDeveloperWorkshop"
      dotnet build -c Release
      ```
 
      The projects will be built and the tests run.
 
-1. Open the built solution in file explorer at `solution\ScottishSummitDeveloperWorkshop\bin\ScottishSummitDeveloperWorkshop_managed.zip` by right clicking on the file and selected **Reveal in File Explorer**. Open the solution zip and check that the following files are present as a result of the build:
+1. Open the built solution in file explorer at `solution\PowerPlatformProDeveloperWorkshop\bin\PowerPlatformProDeveloperWorkshop_managed.zip` by right clicking on the file and selected **Reveal in File Explorer**. Open the solution zip and check that the following files are present as a result of the build:
 
     1. `Controls/contoso_Contoso.ImageGrid/bundle.js`
     1. `PluginAssemblies/ContosoRealEstateBusinessLogic-D3A8E79A-791E-446C-B45D-0684436C6CD6/ContosoRealEstateBusinessLogic.dll`
@@ -206,7 +206,7 @@ In Dataverse, you now have a solution that contains the metadata for tables and 
 1. Inside **make.powerapps.com**, make a change to the solution (e.g. add a new field to a table and form). We can now synchronize our changes by using:
 
     ```powershell
-    pac solution sync --solution-folder "C:\workshop\solution\ScottishSummitDeveloperWorkshop" --async --packagetype Both
+    pac solution sync --solution-folder "C:\workshop\solution\PowerPlatformProDeveloperWorkshop" --async --packagetype Both
     ```
 
 1. Navigate to the Source Control activity pane again and look at the changes that are synced. You can the commit these changes. One of the things that you will need to get familiar with is excluding 'Noisy Diffs' from your commits. That is, the changes that were not caused by you - but by the platform.

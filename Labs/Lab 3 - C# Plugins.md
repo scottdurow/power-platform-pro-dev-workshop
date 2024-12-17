@@ -122,10 +122,10 @@ We will use **Visual Studio** to author our plugin to validate that there isn't 
                           EntityName = contoso_Reservation.EntityLogicalName,
                           ColumnSet = new ColumnSet(contoso_Reservation.Fields.contoso_ReservationId)
                       };
-                      query.Criteria.AddCondition(contoso_Reservation.Fields.contoso_Listing, ConditionOperator.Equal, reservation.contoso_Listing.Id);
+                       query.Criteria.AddCondition(contoso_Reservation.Fields.contoso_Listing, ConditionOperator.Equal, reservation.contoso_Listing.Id);
                       query.Criteria.AddCondition(contoso_Reservation.Fields.contoso_ReservationStatus, ConditionOperator.NotEqual, (int)contoso_reservationstatus.Cancelled);
-                      query.Criteria.AddCondition(contoso_Reservation.Fields.contoso_From, ConditionOperator.LessThan, reservation.contoso_From.Value);
-                      query.Criteria.AddCondition(contoso_Reservation.Fields.contoso_To, ConditionOperator.GreaterThan, reservation.contoso_To.Value);
+                      query.Criteria.AddCondition(contoso_Reservation.Fields.contoso_From, ConditionOperator.LessThan, reservation.contoso_To.Value);
+                      query.Criteria.AddCondition(contoso_Reservation.Fields.contoso_To, ConditionOperator.GreaterThan, reservation.contoso_From.Value);
       
                       var reservations = service.RetrieveMultiple(query);
                       var isListingAvailable = reservations.Entities.FirstOrDefault() == null;
@@ -210,7 +210,7 @@ We will use **Visual Studio** to author our plugin to validate that there isn't 
 1. Select the **Installed** Tab, and select `Microsoft.CrmSdk.CoreAssemblies`, Select the **Test project** -> **Install** -> **Apply** -> **I Accept**.    
      ![Add Core Assemblies](./assets/add-core-assemblies-nuget.png)
 
-1. Right click on the `ContosoRealEstateBusinessLogic.Tests` project in **solution explorer**, select **References**, and select `ContosoRealEstateBusinessLogic` and select **OK**.   
+1. Right click on the `ContosoRealEstateBusinessLogic.Tests` project in **solution explorer**, select **References-> Add Reference**, and select `ContosoRealEstateBusinessLogic` and select **OK**.   
      ![Reference Plugin](./assets/reference-plugin.png)
 
 1. Right click on `UnitTest1.cs` and rename to `ReservationCreateUnitTests.cs`. As before, when prompted **Would you like to perform a rename in this project**, select **Yes**.
@@ -298,7 +298,7 @@ We will use **Visual Studio** to author our plugin to validate that there isn't 
 
 1. Open the test explorer **Test** -> **Test Explorer**.
 
-1. Press the green play button to run all the tests.
+1. Press the **Green** **Run All Test button** to run all the tests.
 
 1. Experiment with debugging and stepping through the code.
 

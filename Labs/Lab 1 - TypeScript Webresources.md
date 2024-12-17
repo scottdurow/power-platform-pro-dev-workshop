@@ -36,7 +36,7 @@ Using the `ts-loader` webpack plugin will run the tsc compiler for you so that a
 > [!NOTE]
 > Using `-r` will open the current directory and re-use the current VS Code instance.
 
-4. **Npm** is used to install required modules into a node_modules folder. To intialise your project type the following at a PowerShell terminal. If you don't see a terminal, show the terminal using  ```Ctrl+` ```  (back tick)
+4. **Npm** (Node package manager) is used to install required modules into a node_modules folder. To initialize your project type the following at a PowerShell terminal. If you don't see a terminal, show the terminal using  ```Ctrl+` ```  (back tick)
 
    ```powershell
    npm init -y
@@ -45,149 +45,151 @@ Using the `ts-loader` webpack plugin will run the tsc compiler for you so that a
 6. TypeScript is used to initialize the project folder with a `tsconfig.json` file. At the command line, type:
    ```powershell
    npm install typescript --save-dev
-   npx tsc -init
    ```
    
-7. Open the `tsconfig.json` file and update to match the following:
+7. Open the `packages.json` file and look at the structure. This file is very important since it defines which external modules/packages you are using. We will be installing packages that will be added to either the `dependencies` (used to list the modules used in the output code) or `devDependencies` (used to list the modules used during development) section.
 
-    ```json
-    {
-    	"compilerOptions": {
-    		"target": "ES2017",
-    		"module": "commonjs",
-    		"moduleResolution": "node",
-    		"lib": [
-    			"ES2017",
-    			"dom"
-    		],
-    		"rootDir": "src",
-    		"strict": true,
-    		"alwaysStrict": true,
-    		"strictFunctionTypes": true,
-    		"strictNullChecks": true,
-    		"strictPropertyInitialization": true,
-    		"forceConsistentCasingInFileNames": true,
-    		"noImplicitAny": true,
-    		"noImplicitReturns": true,
-    		"noImplicitThis": true,
-    		"noFallthroughCasesInSwitch": true,
-    		"noUnusedLocals": true,
-    		"noUnusedParameters": true,
-    		"emitDecoratorMetadata": false,
-    		"experimentalDecorators": false,
-    		"downlevelIteration": true,
-    		"declaration": false,
-    		"sourceMap": true,
-    		"pretty": true,
-    		"esModuleInterop": true,
-        	"allowSyntheticDefaultImports": true,
-            "typeRoots": ["node_modules/@types"]
-    	}
-    }
-    ```
-
-- **`module` -** This is important to set to es2017 so that webpack can ‘tree-shake’ and decide which modules it needs to output in the bundle.
-- **`lib`** tells typescript that we can use the ES2017 features (e.g. Promise) and HTML Dom libraries because they will be available at runtime.
-- **`rootDir`** – We are putting our TypeScript inside the `src` folder. This is a common convention and separates the TypeScript from other resources that we may have in our project.
-- **`moduleResolution` –** This tells TypeScript that we are writing our code in the same way that we would load modules when running inside a Node environment. This is because later, webpack will work out how to package the modules that we are using so that they will run inside the browser.
-- **`sourceMap` –** This tells TypeScript that we want to produce sourcemaps for our TypeScript code so that webpack can package them when creating development builds for debugging inside the browser.
 
 > [!IMPORTANT]
-> The node_modules contains the files that are downloaded by npm. They are not necessary to be checked into source-code and can be re-installed at anytime by deleting the node_modules folder and running the command: `npm install`
+> The `node_modules` contains the files that are downloaded by `npm`. They are not necessary to be checked into source-code and can be re-installed at anytime by deleting the node_modules folder and running the command: `npm install`
+
+## ✅Installing webpack
+
+To build your TypeScript you can use the TypeScript compiler `tsc`  - however this will create multiple JavaScript files. We only want a single JavaScript file to deploy as a Web Resource. We use webpack to do this bundling. It will also enable use to create a version of the Web Resource that is minimized for production use, as well as a version that we can use for debugging.
+
+1. At the PowerShell command line run:
+
+   ```powershell
+   npm install --save-dev webpack webpack-cli @webpack-cli/generators
+   npx webpack-cli init
+   ```
+
+1. Answer the questions as follows:
+
+   - Which of the following JS solutions do you want to use? **Typescript**
+
+   - Do you want to use webpack-dev-server? **No**
+
+   - Do you want to simplify the creation of HTML files for your bundle? **No**
+
+   - Do you want to add PWA support? **No**
+
+   - Which of the following CSS solutions do you want to use? **none**
+
+   - Do you like to install prettier to format generated configuration? **Yes**
+
+   - Pick a package manager: **npm**
+
+   - overwrite `package.json`: **Yes**
+
+
+   You may see a warning about prettier not being installed. You can ignore this.
+
+1. Open the `webpack.config.js`. Update the `output` section to match the following:
+
+   ```javascript
+     output: {
+       path: path.resolve(__dirname, 'dist'),
+       filename: 'ClientHooks.js',
+       library: ['Contoso', 'ListingsAdmin'],
+       libraryTarget: 'var',
+     },
+   ```
+
+   This will output a single bundle called `ClientHooks.js` with a namespace `Contoso.ListingsAdmin`.
+
+1. Open the `tsconfig.json` and add the following to the `compilerOptions` section: 
+
+   ```json
+   "moduleResolution": "node",
+   ```
+
+   This tells TypeScript and later the Jest test runner that we are loading modules from the `node_modules` folder.
+
+1. Open the the `packages.json`, add notice the additional commands for `build` and `watch` have been added.
+
+   ```json
+   "build": "webpack --mode=production --node-env=production",
+   "build:dev": "webpack --mode=development",
+   "build:prod": "webpack --mode=production --node-env=production",
+   "watch": "webpack --watch",
+   ```
 
 ## ✅Task 2: Install `ESLint` & `prettier`
 
 You should always use a linter with your TypeScript projects to catch common issues and promote best practices. `ESLint` is the most common linter used with TypeScript today. prettier then ensures your code is always formatted consistently so that you do not get noisy diffs when committing to source control.
 
-1. Create a new file in the root of your project named `.eslintrc.json` and save the following content:
-   ```json
-   {
-       "env": {
-         "browser": true,
-         "es2021": true
-       },
-       "extends": [
-         "eslint:recommended",
-         "plugin:@typescript-eslint/recommended",
-         "plugin:prettier/recommended",
-         "prettier"
-       ],
-       "parser": "@typescript-eslint/parser",
-       "parserOptions": {
-         "ecmaFeatures": {
-           "jsx": true
-         },
-         "ecmaVersion": 12,
-         "sourceType": "module"
-       },
-       "plugins": [
-         "@typescript-eslint",
-         "prettier"
-       ],
-       "settings": {
-        
-       },
-       "rules": {
-         "prettier/prettier": "error",
-         "eqeqeq": [2, "smart"],
-         "arrow-body-style": "off",
-         "prefer-arrow-callback": "off",
-         "linebreak-style": [
-               "error",
-               "windows"
-           ],
-           "quotes": [
-               "error",
-               "single"
-           ],
-           "semi": [
-               "error",
-               "always"
-           ]
-       },
-       "ignorePatterns": [
-         "generated/",
-         "dataverse-gen/"
-       ],
-       "root":true
-     }
+1. At the PowerShell command line run the following:
+
+   ```powershell
+   npx eslint --init
    ```
 
-   
+   Answer with the following:
 
-1. Create a new file in the root of your project named `.prettierrc.json` and save the following content:
+   - How would you like to use ESLint? · **problems**
+   - What type of modules does your project use? · **JavaScript Modules (Import/export) (esm)**
+   - Which framework does your project use? · **None of these**
+   - Does your project use TypeScript? · **Yes**
+   - Where does your code run? · **Browser**
+   - The config that you've selected requires the following dependencies: `eslint, globals, @eslint/js, typescript-eslint`. Would you like to install them now? ·**Yes**
+   - Which package manager do you want to use? · **npm**
+
+1. Notice the new `eslint.config.mjs` file that is created to define the linting rules.
+
+1. Open the `packages.json`, and add the following to the `scripts` section underneath the webpack commands:
+
    ```json
-   {
-       "semi": true,
-       "trailingComma": "all",
-       "singleQuote": true,
-       "printWidth": 120,
-       "tabWidth": 4,
-       "endOfLine":"crlf"
-     }
+   "lint": "eslint src",
+   "lint:fix": "npm run lint -- --fix"
    ```
+
+   You will need to add a comma to the previous script line. These commands can be used to manually run the lint rules during the build.
 
 1. Save all your files using File - > Save All (`Ctrl-K S`)
 
-1. At the command line type:
+> [!TIP]
+> Learn more about eslint at https://typescript-eslint.io/getting-started/
 
-    ```powershell
-    npm install --save-dev eslint@8 @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint  eslint-config-prettier eslint-plugin-import eslint-plugin-prettier eslint-plugin-promise @microsoft/eslint-plugin-power-apps
-    
-    npm install --save-dev --save-exact prettier
-    ```
+## ✅Configuring `Prettier` 
 
-    This will install the eslint and prettier node modules.
+The **Prettier** plugin is added to `eslint` so that we can enforce consistent code formatting:
 
-1. Now you have `eslint` configured, you can add linting to your `package.json` file to enable you to list and fix any code issues. Add the following scripts:
+1. At the PowerShell command line call the following to install the prettier plugin:
+   ```powershell
+   npm install --save-dev eslint-plugin-prettier eslint-config-prettier
+   ```
 
-    ```json
-    "scripts": {
-    	"lint": "eslint src --ext .ts",
-        "lint:fix": "npm run lint -- --fix",
-        ...existing content...
-      }
-    ```
+1. Open the `eslint.config.msj` file and underneath the imports add an additional import:
+
+   ```typescript
+   import prettierPlugin from 'eslint-plugin-prettier/recommended';
+   ```
+
+1. Under the existing config in the `eslint.config.msj`, under `...tseslint.configs.recommended`, add the following:
+
+   ```typescript
+     prettierPlugin,
+     {
+       linterOptions: {
+         reportUnusedDisableDirectives: false,
+       },
+       rules: {
+         '@typescript-eslint/no-empty-object-type': 'off',
+         'prettier/prettier': [
+           'error',
+           {
+             singleQuote: true,
+             useTabs: false,
+             tabWidth: 2,
+             semi: true,
+             bracketSpacing: true,
+             endOfLine: 'auto',
+           },
+         ],
+       },
+     },
+   ```
 
 ## ✅Install the `ESLint` VSCode Extension
 
@@ -195,8 +197,7 @@ We will uses the `ESLint` **VS Code** extension. This will give you a code lens 
 
 1. Install the `ESLint` Marketplace extension to **VS Code**. The `ESLint` extensions simply uses the `ESLint` configuration of your project.	
    ![ESLint Extension](./assets/es-lint-extension.png)
-1. Add a new file under a folder named `src`, named `index.ts` - this will mean that `ESLint` will start running on our project.
-    ![Add new Index](./assets/add-new-index-ts.png)
+1. you should have already have a `src` folder containing `index.ts` - this will mean that `ESLint` will start running on our project.
 1. Close and Re-open **VS Code** ensure that `ESLint` is running. Select the **OUTPUT** tab, and select `ESLint`.   
    ![ESLint Server](./assets/eslint-server.png)
 
@@ -214,8 +215,6 @@ We will uses the `ESLint` **VS Code** extension. This will give you a code lens 
     ```
     npm run lint:fix
     ```
-
-See https://eslint.org/docs/user-guide/command-line-interface for more information.
 
 ## ✅ Create early bound types
 
@@ -281,43 +280,59 @@ The JavaScript we are going to write will use the `Xrm` Client Api. To enable st
 1. Add a new folders and file `src/forms/listing-form.ts`
 1. Add the following code:
 
-```
-import { contoso_listingAttributes, contoso_listingFormContext } from '../dataverse-gen/entities/contoso_listing';
+```typescript
+import {
+  contoso_listingAttributes,
+  contoso_listingFormContext,
+} from '../dataverse-gen/entities/contoso_listing';
 import { contoso_listing_contoso_listing_contoso_features } from '../dataverse-gen/enums/contoso_listing_contoso_listing_contoso_features';
 
 export async function OnLoad(context: Xrm.Events.EventContext): Promise<void> {
-    const formContext = context.getFormContext();
-    console.log('OnLoad hook' + formContext.data.entity.getEntityName());
-    formContext.getAttribute(contoso_listingAttributes.contoso_features).addOnChange(features_onchange);
-    // Run the onchange event to show/hide the number of bathrooms field
-    features_onchange(context as Xrm.Events.Attribute.ChangeEventContext);
+  const formContext = context.getFormContext();
+  console.log('OnLoad hook' + formContext.data.entity.getEntityName());
+  formContext
+    .getAttribute(contoso_listingAttributes.contoso_features)
+    .addOnChange(features_onchange);
+  // Run the onchange event to show/hide the number of bathrooms field
+  features_onchange(context as Xrm.Events.Attribute.ChangeEventContext);
 }
 
-function features_onchange(context: Xrm.Events.Attribute.ChangeEventContext): void {
-    const formContext = context.getFormContext() as contoso_listingFormContext;
-    console.log('OnLoad hook' + formContext.data.entity.getEntityName());
+function features_onchange(
+  context: Xrm.Events.Attribute.ChangeEventContext,
+): void {
+  const formContext = context.getFormContext() as contoso_listingFormContext;
+  console.log('OnLoad hook' + formContext.data.entity.getEntityName());
 
-    // If the choices field contains parking, then enable the total parking spaces field
-    const features = formContext
-        .getAttribute<Xrm.Attributes.MultiSelectOptionSetAttribute>(contoso_listingAttributes.contoso_features)
-        .getValue();
+  // If the choices field contains parking, then enable the total parking spaces field
+  const features = formContext
+    .getAttribute<Xrm.Attributes.MultiSelectOptionSetAttribute>(
+      contoso_listingAttributes.contoso_features,
+    )
+    .getValue();
 
-    if (features && features.includes(contoso_listing_contoso_listing_contoso_features.Parking)) {
-        formContext.getControl(contoso_listingAttributes.contoso_TotalParkingSpaces).setVisible(true);
-    } else {
-        formContext.getControl(contoso_listingAttributes.contoso_TotalParkingSpaces).setVisible(false);
-        formContext.getAttribute(contoso_listingAttributes.contoso_TotalParkingSpaces).setValue(null);
-    }
+  if (
+    features &&
+    features.includes(contoso_listing_contoso_listing_contoso_features.Parking)
+  ) {
+    formContext
+      .getControl(contoso_listingAttributes.contoso_TotalParkingSpaces)
+      .setVisible(true);
+  } else {
+    formContext
+      .getControl(contoso_listingAttributes.contoso_TotalParkingSpaces)
+      .setVisible(false);
+    formContext
+      .getAttribute(contoso_listingAttributes.contoso_TotalParkingSpaces)
+      .setValue(null);
+  }
 }
 
 ```
-
-
 
 If you type this in manually, you will see the intellisense for the Xrm types that is provided by the module `@types/xrm`.
 
 If you make any changes to this file you may start to see red underlined areas that indicate ESLint formatting issues. Try changing the `const` to `var` - and see the warning that is shown.
-![Context Lint](./assets/forcontext-lint.png)
+![Eslint No Var](./assets/eslint-no-var.png)
 
 Use the VS Code command `ESLint: Fix all auto-fixable Problems` - if you assigned a keyboard short cut earlier - you can also use this.
 
@@ -327,125 +342,74 @@ Use the VS Code command `ESLint: Fix all auto-fixable Problems` - if you assigne
 
 You may also see yellow underlined areas where there are ESLint issues. These cannot be auto-fixed, but you may ignore if needed by pressing `Ctrl + .` or ‘Quick Fix..’ and then **Disable for this line** or **Disable for the entire file**. This will add a comment into your code telling ESLint that you are ok to ignore the issues.
 
-## ✅Installing webpack
+## ✅ Building
 
-To build your TypeScript you can use the TypeScript compiler `tsc`  - however this will create multiple JavaScript files. We only want a single JavaScript file to deploy as a Web Resource. We use webpack to do this bundling. It will also enable use to create a version of the Web Resource that is minimized for production use, as well as a version that we can use for debugging.
+The `index.ts` file must export the root of all the functionality you want to bundle.
 
-1. At the PowerShell command line run:
-   ```powershell
-   npm install --save-dev webpack webpack-cli @webpack-cli/generators ts-loader
-   ```
-
-1. Add a new file named `webpack.config.js`
-
-   ```javascript
-   // Set this to be the namespace of your library
-   const namespace = ['Contoso', 'ListingsAdmin'];
-   
-   // Generated using webpack-cli https://github.com/webpack/webpack-cli
-   const path = require('path');
-   const isProduction = process.env.NODE_ENV === 'production';
-   
-   const config = {
-       entry: './src/index.ts',
-       output: {
-           path: path.resolve(__dirname, 'dist'),
-           filename: 'ClientHooks.js',
-   
-           library: namespace,
-           libraryTarget: 'var',
-       },
-       plugins: [],
-       module: {
-           rules: [
-               {
-                   test: /\.(ts|tsx)$/i,
-                   loader: 'ts-loader',
-                   exclude: ['/node_modules/'],
-               },
-           ],
-       },
-       resolve: {
-           extensions: ['.tsx', '.ts', '.jsx', '.js', '...'],
-       },
-   };
-   
-   module.exports = () => {
-       if (isProduction) {
-           config.mode = 'production';
-       } else {
-           config.mode = 'development';
-           config.devtool = 'eval-source-map';
-       }
-       return config;
-   };
-   
-   ```
-
-   This will output a single bundle called `ClientHooks.js` with a namespace `Contoso.ListingsAdmin`.
-
-1. Inside the `packages.json`, add the following additional build scripts:
-
-   ```json
-   "build": "webpack --mode=production --define-process-env-node-env=production",
-   "build:dev": "npm run lint & webpack --mode=development & npm run test",
-   "build:prod": "npm run lint & webpack --mode=production --define-process-env-node-env=production & npm run test",
-   "watch": "webpack --watch",
-   ```
-
-1. You can now build the Web Resource using:
+1. At the PowerShell command line run the following:
 
    ```powershell
    npm run build
    ```
 
-1. Look in the `dist` folder and review the `ClientHooks.js` generated file. It will currently contain a very simple piece of JavaScript that does not contain the form script you created above.
-   To add the code to the output, we must export it in the `index.ts` file:
+   Look in the `dist` folder and review the `ClientHooks.js` generated file. It will currently contain a very simple piece of JavaScript that does not contain the form script you created above.
 
-   ```powershell
+1. To include the form script, ppen the `index.ts` and add the following:
+
+   ```typescript
    // Export all of your modules here
    export * as ListingForm from './forms/listing-form';
    
    ```
 
-   **Note:** It's important to include the blank space at the end since this will be checked by the lint rules.
+   > [!NOTE]
+   > It's important to include the blank space at the end since this will be checked by the lint rules.
 
-1. Run the build again and notice how the code is now included.
+1. You can now build the Web Resource by running build again at the PowerShell command line:
+
+   ```powershell
+   npm run build
+   ```
+
+1. Notice the `dist/ClientHooks.js` output not contains the form script.
 
 1. If you run `npm run build:dev` you will see that the code is generated with a debug information. You will see how this is used later in this lab.
-
-> [!TIP]
->
-> You can use `npx webpack init` to create a webpack project from scratch - this is something you can experiment with in the future.
 
 ## ✅ Adding Unit Tests
 
 Unit tests are a powerful way of ensuring that your code works before deploying it. We will use jest to test our code. Learn more at [Jest · 🃏 Delightful JavaScript Testing (jestjs.io)](https://jestjs.io/).
 
-1. A the root of your project, add a new file called `jest.config.js`.
-   ```json
-   /* eslint-disable no-undef */
-   module.exports = {
-       preset: 'ts-jest',
-       testEnvironment: 'node',
-       roots: ['<rootDir>/src/'],
-       transform: {
-           '^.+\\.tsx?$': [
-               'ts-jest',
-               {
-                   tsconfig: 'tsconfig.json',
-               },
-           ],
-       },
-   };
-   
+1. At the PowerShell command line run:
+
+   ```powershell
+   npx jest --init
    ```
 
-   
+   Answer with the following:
 
-1. Install jest using:
+   - Would you like to use Jest when running "test" script in "package.json"? ... **Yes**
+   - Would you like to use Typescript for the configuration file? ... **No**
+   - Choose the test environment that will be used for testing » **node**
+   - Do you want Jest to add coverage reports? ... **Yes**
+   - Which provider should be used to instrument code for coverage? » **v8**
+   - Automatically clear mock calls, instances, contexts and results before every test? ... **Yes**
+
+1. At the PowerShell command line run the following to install Jest:
+
    ```powershell
-   npm install --save-dev @types/jest ts-jest
+   npm install --save-dev @types/jest ts-jest xrm-mock
+   ```
+
+1. Open the new `jest.config.js` that was created, and locate the commented out `preset` line::
+
+   ```javascript
+    // preset: undefined,
+   ```
+
+   and **replace** with:
+
+   ```javascript
+   preset: 'ts-jest',
    ```
 
 1. Mocking is the technique used in unit testing to create 'mock' versions of objects that would normally be provided by the runtime environment, to allow us to test in isolation. It also allows you to ensure that you are only testing the code that is the subject of your unit test. Read more about mocking here - [Mock object - Wikipedia](https://en.wikipedia.org/wiki/Mock_object)
@@ -456,8 +420,6 @@ Unit tests are a powerful way of ensuring that your code works before deploying 
    npm install --save-dev xrm-mock
    ```
 
-   
-
 1. We can now add a unit test at `forms/__tests__/unit.listing-form.test.ts`
 
    ```typescript
@@ -467,51 +429,56 @@ Unit tests are a powerful way of ensuring that your code works before deploying 
    import { XrmMockGenerator } from 'xrm-mock';
    
    describe('OnLoad', () => {
-       beforeEach(() => {
-           XrmMockGenerator.initialise();
-       });
+     beforeEach(() => {
+       XrmMockGenerator.initialise();
+     });
    
-       it('should execute the OnLoad function', async () => {
-           // Mock the Xrm.Events.EventContext object
-           const context = XrmMockGenerator.getEventContext();
-           const featuresMock = XrmMockGenerator.Attribute.createOptionSet('contoso_features', [
-               contoso_listing_contoso_listing_contoso_features.Parking,
-               // eslint-disable-next-line @typescript-eslint/no-explicit-any
-           ] as any);
-           const totalParkingSpacesMock = XrmMockGenerator.Attribute.createNumber(
-               contoso_listingAttributes.contoso_TotalParkingSpaces,
-               0,
-           );
-   
-           // Mock formContext.data.entity.getEntityName() to return 'contoso_listing'
-           context.getFormContext().data.entity.getEntityName = jest.fn(() => 'contoso_listing');
-   
-           // Call the OnLoad function
-           await OnLoad(context);
-   
-           // Check that totalParkingSpacesMock.setVisible was called
-           expect(totalParkingSpacesMock.controls.get(0).getVisible()).toBe(true);
-   
-           // Set the featuresMock to be empty
+     it('should execute the OnLoad function', async () => {
+       // Mock the Xrm.Events.EventContext object
+       const context = XrmMockGenerator.getEventContext();
+       const featuresMock = XrmMockGenerator.Attribute.createOptionSet(
+         'contoso_features',
+         [
+           contoso_listing_contoso_listing_contoso_features.Parking,
            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-           featuresMock.setValue([] as any);
+         ] as any,
+       );
+       const totalParkingSpacesMock = XrmMockGenerator.Attribute.createNumber(
+         contoso_listingAttributes.contoso_TotalParkingSpaces,
+         0,
+       );
    
-           // Call the OnLoad function
-           await OnLoad(context);
+       // Mock formContext.data.entity.getEntityName() to return 'contoso_listing'
+       context.getFormContext().data.entity.getEntityName = jest.fn(
+         () => 'contoso_listing',
+       );
    
-           // Check that totalParkingSpacesMock.setVisible was called
-           expect(totalParkingSpacesMock.controls.get(0).getVisible()).toBe(false);
-       });
+       // Call the OnLoad function
+       await OnLoad(context);
+   
+       // Check that totalParkingSpacesMock.setVisible was called
+       expect(totalParkingSpacesMock.controls.get(0).getVisible()).toBe(true);
+   
+       // Set the featuresMock to be empty
+       // eslint-disable-next-line @typescript-eslint/no-explicit-any
+       featuresMock.setValue([] as any);
+   
+       // Call the OnLoad function
+       await OnLoad(context);
+   
+       // Check that totalParkingSpacesMock.setVisible was called
+       expect(totalParkingSpacesMock.controls.get(0).getVisible()).toBe(false);
+     });
    });
    
    ```
 
-   Note that the `__tests__` folder is a convention used by jest to discover tests.
+   Note that the `__tests__` folder and file ending in `.test.ts` is a convention used by jest to discover tests.
 
-1. Update the `package.json` script for test to be:
+1. Open the `package.json` and replace the  `test` script to be:
 
    ```json
-   "test": "jest unit. --collectCoverage"
+   "test": "jest unit. --collectCoverage",
    ```
 
 1. You can execute the tests using:
@@ -527,13 +494,13 @@ Unit tests are a powerful way of ensuring that your code works before deploying 
    ```powershell
    npm run build:prod
    ```
-	You can look at the `dist/ClientHooks.js` and see how the JavaScript is now optimized for production deployment. 
+   You can look at the `dist/ClientHooks.js` and see how the JavaScript is now optimized for production deployment. 
 ## ✅ Deploying to Power Apps
 
 Now we can build our Web Resource, we must deploy and register it as a form script.
 
 1. Open **make.powerapps.com** and select your developer environment. 
-1. Open the **Scottish Summit Developer Workshop** solution.
+1. Open the **Power Platform Pro Developer Workshop** solution.
 1. Navigate to **Web resources** -> **Listings Admin App Client Hooks Scripts**  
 1. Select **Upload** a file, and locate the `dist/ClientHooks.js` file you built.
 1. Select **Save**.
