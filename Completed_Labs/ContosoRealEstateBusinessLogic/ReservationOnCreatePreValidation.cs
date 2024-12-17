@@ -40,10 +40,11 @@ namespace ContosoRealEstateBusinessLogic
                 };
                 query.Criteria.AddCondition(contoso_Reservation.Fields.contoso_Listing, ConditionOperator.Equal, reservation.contoso_Listing.Id);
                 query.Criteria.AddCondition(contoso_Reservation.Fields.contoso_ReservationStatus, ConditionOperator.NotEqual, (int)contoso_reservationstatus.Cancelled);
-                query.Criteria.AddCondition(contoso_Reservation.Fields.contoso_From, ConditionOperator.LessThan, reservation.contoso_From.Value);
-                query.Criteria.AddCondition(contoso_Reservation.Fields.contoso_To, ConditionOperator.GreaterThan, reservation.contoso_To.Value);
+                query.Criteria.AddCondition(contoso_Reservation.Fields.contoso_From, ConditionOperator.LessThan, reservation.contoso_To.Value);
+                query.Criteria.AddCondition(contoso_Reservation.Fields.contoso_To, ConditionOperator.GreaterThan, reservation.contoso_From.Value);
 
                 var reservations = service.RetrieveMultiple(query);
+                localPluginContext.Trace($"Query returned {reservations.Entities.Count} results for {reservation.contoso_From.Value} {reservation.contoso_To.Value}" );
                 var isListingAvailable = reservations.Entities.FirstOrDefault() == null;
 
                 if (!isListingAvailable)
