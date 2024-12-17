@@ -9,7 +9,7 @@
 
   <PropertyGroup>
     <Name>image-grid-pcf</Name>
-    <ProjectGuid>5ccd19e5-2628-44fc-a5dd-9d1944336944</ProjectGuid>
+    <ProjectGuid>96a8a087-86c8-482b-937a-80fe12bfa19c</ProjectGuid>
     <OutputPath>$(MSBuildThisFileDirectory)out\controls</OutputPath>
     <PcfBuildMode>production</PcfBuildMode>
   </PropertyGroup>
