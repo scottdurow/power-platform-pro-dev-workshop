@@ -1,33 +1,11 @@
 {
-	"compilerOptions": {
-		"target": "ES2017",
-		"module": "commonjs",
-		"moduleResolution": "node",
-		"lib": [
-			"ES2017",
-			"dom"
-		],
-		"rootDir": "src",
-		"strict": true,
-		"alwaysStrict": true,
-		"strictFunctionTypes": true,
-		"strictNullChecks": true,
-		"strictPropertyInitialization": true,
-		"forceConsistentCasingInFileNames": true,
-		"noImplicitAny": true,
-		"noImplicitReturns": true,
-		"noImplicitThis": true,
-		"noFallthroughCasesInSwitch": true,
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"emitDecoratorMetadata": false,
-		"experimentalDecorators": false,
-		"downlevelIteration": true,
-		"declaration": false,
-		"sourceMap": true,
-		"pretty": true,
-		"esModuleInterop": true,
-    	"allowSyntheticDefaultImports": true,
-        "typeRoots": ["node_modules/@types"]
-	}
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "module": "es6",
+    "target": "es5",
+    "allowJs": true,
+    "moduleResolution": "node",
+  },
+  "files": ["src/index.ts"]
 }
