@@ -103,8 +103,8 @@ Visual Studio makes it easy to create a Web API and deploy it to Azure using the
      [HttpGet(Name = "GetWeatherForecast")]
      [SwaggerOperation(Summary = "Get Weather Forecast",
          Description = "Get a weather forecast for a specified city",
-         OperationId = "GetWeatherForecast", 
-         Tags = new[] { "Weather" })]
+         OperationId = "GetWeatherForecast",
+         Tags = ["Weather"])]
      public ForecastResponse Get([FromQuery, SwaggerParameter("The city to get the forecast for"), Required] string City)
      {
          var response = new ForecastResponse
@@ -139,7 +139,7 @@ Visual Studio comes with built in support for Power Platform so that we can publ
 1. You may need to close and restart Visual Studio at this point if you had already been connected to a different account.
 
 1. Select your Power Platform developer environment, and the Scottish Summit Developer Workshop solution.    
-   ![Connect Power Platform Visual Studio](./assets/connect-power-platform-visual-studio.png)
+   ![Connect to Power Platform](./assets/connect-to-power-platform-visual-studio.png)
 
 1. Select the **add + button** next to the **Custom connectors** -> **Create**.
 
@@ -148,7 +148,8 @@ Visual Studio comes with built in support for Power Platform so that we can publ
 
 1. Select **Next** ➡️ **Finish**.
 
-1. Once the connector has finished being created, we can open it in Power Platform. Inside **make.powerapps.com** -> Navigate to **Custom Connectors**.
+1. Once the connector has finished being created, we can open it in Power Platform. Inside **make.powerapps.com** -> Navigate to **Custom Connectors** or you can right click on the **Microsoft Power Platform Connected Services** and select **Open Power Apps**.
+    ![Connected Services Open Power Apps](./assets/connected-services-open-power-apps.png)
 
 1. Select your `WeatherForecast_Connector` -> **Edit**.
 
@@ -183,7 +184,7 @@ Visual Studio comes with built in support for Power Platform so that we can publ
 
 Now that we have our custom connector working and the web api running inside Visual Studio, we can add this to Copilot Studio to give a natural language to our Web Api.
 
-1. Inside the **Scottish Summit Workshop** solution, select **New** -> **Chatbot/Copilot**.
+1. Inside the **Power Platform Pro Dev Summit Workshop** solution, select **New** -> **Agent**.
 
 1. You can use Copilot to create an agent, but we will simply select **Skip to configure**.
 
@@ -191,26 +192,24 @@ Now that we have our custom connector working and the web api running inside Vis
 
 1. Select **Actions** -> **Add an action**.
 
-1. Select **Custom connector**.
+1. Select **...** -> **Custom connector**.
 
 1. Enter `Get Weather Forecast` in the search, select the **Get Weather Forecast** connector. Make sure you select your custom connector.     
    ![Select Connector](./assets/select-connector.png)
 
-1. On the next page, select Copilot author authentication since we do not need the user to be authenticated. In your scenarios you may need the user to be authenticated with your Web API to ensure that they have access. See [PowerPlatformAdvocates/Workshops/CustomConnectorInVisualStudio](https://github.com/microsoft/PowerPlatformAdvocates/tree/main/Workshops/CustomConnectorInVisualStudio)    
+1. On the **Next** page, select Copilot author authentication since we do not need the user to be authenticated. In your scenarios you may need the user to be authenticated with your Web API to ensure that they have access. See [PowerPlatformAdvocates/Workshops/CustomConnectorInVisualStudio](https://github.com/microsoft/PowerPlatformAdvocates/tree/main/Workshops/CustomConnectorInVisualStudio)    
    ![Agent Connector Auth](./assets/agent-connector-auth.png)
 
-1. Select **Next**
+1. Expand **Inputs and outputs**.
 
-1. Select Outputs -> `weatherForecast` -> **Edit outputs**.
+1. Select **Outputs** -> `weatherForecast` -> **Edit**.
 
    1. **Display name:** Weather Forecast
 
-   1. **Description:** List of temperatures for the city by date
-
-   1. **Response to the user after running this action:** AI dynamically generates a message (default)    
-      ![Set Inputs Outputs](./assets/set-inputs-outputs.png)
-
-   1. Select **Save** -> **Next** -> **Finish**.
+   1. **Description:** List of temperatures for the city by date   
+      ![Set inputs outputs](./assets/set-inputs-outputs.png)
+   
+   1. Select **Add action**
 
    1. Select **Settings** -> **Generative AI** -> **Generative**
 
@@ -218,16 +217,19 @@ Now that we have our custom connector working and the web api running inside Vis
 
    1. Select **Save** -> Close.
 
-   1. In the test panel on the right, enter the query:
+   1. Open Test by toggling the Test button, and in the test panel on the right, enter the query:
 
       > What is the weather forecast for Aberdeen?
 
+   1. You will see the activity map show the call to your custom connector.  
+      ![Test Weather Agent](./assets/test-weather-agent.png)
+   
    1. You can also then ask refining questions and the agent will generate an answer from the connector response.    
       ![Weather Response](./assets/weather-response.png)
-
+   
    1. Now **stop the debugging** session in Visual Studio, and **close** Visual Studio.
-
+   
    ## 🥳Congratulations!
-
+   
    Now that you have completed this lab you have learned how to create a Web Api written in C# and interact with it via a Power Platform Custom Connector inside Copilot Studio.
 

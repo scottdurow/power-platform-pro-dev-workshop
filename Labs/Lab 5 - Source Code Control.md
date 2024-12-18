@@ -111,7 +111,7 @@ In Dataverse, you now have a solution that contains the metadata for tables and 
 
 1. To instruct the solution build process to use this, we must add it to the `C:\workshop\solution\PowerPlatformProDeveloperWorkshop\PowerPlatformProDeveloperWorkshop.cdsproj`  by adding the following underneath the `<SolutionRootPath>src</SolutionRootPath>` element:
 
-    ```
+    ```xml
     <OutputPath>bin\</OutputPath>
     <SolutionPackageType>Both</SolutionPackageType>
     <SolutionPackageMapFilePath>$(MSBuildThisFileDirectory)\solution-mapping.xml</SolutionPackageMapFilePath>
@@ -119,7 +119,7 @@ In Dataverse, you now have a solution that contains the metadata for tables and 
 
 1. To check that the build process works, you can run the following at the VS Code PowerShell terminal:
 
-     ```
+     ```shell
      cd "C:\workshop\solution\PowerPlatformProDeveloperWorkshop"
      dotnet build -c Release
      ```
