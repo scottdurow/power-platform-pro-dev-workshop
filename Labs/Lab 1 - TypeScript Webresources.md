@@ -16,9 +16,9 @@ Webpack is a tool that addresses each of these issues by taking the output from 
 
 `Webpack` can be used in conjunction with another library called `Babel`. In a similar way to the TypeScript compiler (`tsc`), Babel can take your TypeScript code and translate it into JavaScript (often referred to as transpiling) so that it will run inside the browser. You might use Babel if you needed more control over the final output such as adding polyfills, using features that the TypeScript compiler doesn’t support or provide multiple versions targeting different run-times. I find no need to use Babel for creating JavaScript Web resources. If you are using Babel then make sure you are using a loader that runs the TypeScript compiler to perform type checking since Babel on it’s own will simple convert to JavaScript without performing any checks.
 
-Using the `ts-loader` webpack plugin will run the tsc compiler for you so that all your types are checked – but if you were using an alternative Babel loader, you can always run `tsc --noEmit` to run the TypeScript compiler and show errors, but not generate any output.
+Using the `ts-loader` webpack plugin will run the `tsc` compiler for you so that all your types are checked – but if you were using an alternative Babel loader, you can always run `tsc --noEmit` to run the TypeScript compiler and show errors, but not generate any output.
 
-## ✅Task 1 - Project folder setup
+## ✅Project folder setup
 
 **VS Code** TypeScript projects do not have a project file like C# (`.csproj`) – so you can simply create a new folder with the name of your project. 
 
@@ -36,32 +36,15 @@ Using the `ts-loader` webpack plugin will run the tsc compiler for you so that a
 > [!NOTE]
 > Using `-r` will open the current directory and re-use the current VS Code instance.
 
-4. **Npm** (Node package manager) is used to install required modules into a node_modules folder. To initialize your project type the following at a PowerShell terminal. If you don't see a terminal, show the terminal using  ```Ctrl+` ```  (back tick)
-
-   ```powershell
-   npm init -y
-   ```
-
-6. TypeScript is used to initialize the project folder with a `tsconfig.json` file. At the command line, type:
-   ```powershell
-   npm install typescript --save-dev
-   ```
-   
-7. Open the `packages.json` file and look at the structure. This file is very important since it defines which external modules/packages you are using. We will be installing packages that will be added to either the `dependencies` (used to list the modules used in the output code) or `devDependencies` (used to list the modules used during development) section.
-
-
-> [!IMPORTANT]
-> The `node_modules` contains the files that are downloaded by `npm`. They are not necessary to be checked into source-code and can be re-installed at anytime by deleting the node_modules folder and running the command: `npm install`
 
 ## ✅Installing webpack
 
 To build your TypeScript you can use the TypeScript compiler `tsc`  - however this will create multiple JavaScript files. We only want a single JavaScript file to deploy as a Web Resource. We use webpack to do this bundling. It will also enable use to create a version of the Web Resource that is minimized for production use, as well as a version that we can use for debugging.
 
-1. At the PowerShell command line run:
+1. To initialize your project, type the following at a PowerShell terminal. If you don't see a terminal, show the terminal using  ```Ctrl+` ```  (back tick).
 
    ```powershell
-   npm install --save-dev webpack webpack-cli @webpack-cli/generators
-   npx webpack-cli init
+   npx create-new-webpack-app init
    ```
 
 1. Answer the questions as follows:
@@ -81,9 +64,12 @@ To build your TypeScript you can use the TypeScript compiler `tsc`  - however th
    - Pick a package manager: **npm**
 
    - overwrite `package.json`: **Yes**
+   
+     You may see a warning about prettier not being installed. You can ignore this!
+   
+1. Once the command is completed, open the `packages.json` file and look at the structure. This file is very important since it defines which external modules/packages you are using. We will be installing packages that will be added to either the `dependencies` (used to list the modules used in the output code) or `devDependencies` (used to list the modules used during development) section.
 
-
-   You may see a warning about prettier not being installed. You can ignore this.
+1. The `node_modules` contains the files that are downloaded by `npm`. **npm** (Node package manager) is used to install required modules into a node_modules folder. They are not necessary to be checked into source-code and can be re-installed at anytime by deleting the node_modules folder and running the command: `npm install`
 
 1. Open the `webpack.config.js`. Update the `output` section to match the following:
 
@@ -115,7 +101,7 @@ To build your TypeScript you can use the TypeScript compiler `tsc`  - however th
    "watch": "webpack --watch",
    ```
 
-## ✅Task 2: Install `ESLint` & `prettier`
+## ✅Install `ESLint` & `prettier`
 
 You should always use a linter with your TypeScript projects to catch common issues and promote best practices. `ESLint` is the most common linter used with TypeScript today. prettier then ensures your code is always formatted consistently so that you do not get noisy diffs when committing to source control.
 
