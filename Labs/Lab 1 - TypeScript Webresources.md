@@ -61,7 +61,7 @@ To build your TypeScript you can use the TypeScript compiler `tsc`  - however th
 
    ```powershell
    npm install --save-dev webpack webpack-cli @webpack-cli/generators
-   npx webpack-cli init
+   npx create-new-webpack-app
    ```
 
 1. Answer the questions as follows:
