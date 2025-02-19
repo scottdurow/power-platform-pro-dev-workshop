@@ -3,7 +3,7 @@
   <SolutionManifest>
     <UniqueName>PowerPlatformProDeveloperWorkshop</UniqueName>
     <LocalizedNames>
-      <LocalizedName description="Scottish Summit Developer Workshop" languagecode="1033" />
+      <LocalizedName description="Power Platform Pro Developer Workshop" languagecode="1033" />
     </LocalizedNames>
     <Descriptions />
     <Version>1.0.0.0</Version>

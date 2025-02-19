@@ -138,7 +138,7 @@ Visual Studio comes with built in support for Power Platform so that we can publ
 
 1. You may need to close and restart Visual Studio at this point if you had already been connected to a different account.
 
-1. Select your Power Platform developer environment, and the Scottish Summit Developer Workshop solution.    
+1. Select your Power Platform developer environment, and the Power Platform Pro Developer Workshop solution.    
    ![Connect to Power Platform](./assets/connect-to-power-platform-visual-studio.png)
 
 1. Select the **add + button** next to the **Custom connectors** -> **Create**.

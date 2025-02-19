@@ -702,7 +702,7 @@ You should have authorized the **Microsoft Power Platform CLI** against your env
 
 4. Open [make.powerapps.com](https://make.powerapps.com) and navigate to **Solutions**. You should see a temporary solution named **PowerAppTools_samples** in your environment that was created as part of the push process. The `ImageGrid` code component will be added to this solution. 
 
-5. We need to add this component to our main solution. Open the **Scottish Summit Developer Workshop** solution in **make.powerapps.com**.
+5. We need to add this component to our main solution. Open the **Power Platform Pro Developer Workshop** solution in **make.powerapps.com**.
 
 6. Select **Add existing** -> **Developer** -> **Custom control** -> Search for `contoso` -> Select the `contoso_Contoso.ImageGrid` -> **Add**.     
    ![Add Custom Control To Solution](./assets/add-custom-control-to-solution.png)
