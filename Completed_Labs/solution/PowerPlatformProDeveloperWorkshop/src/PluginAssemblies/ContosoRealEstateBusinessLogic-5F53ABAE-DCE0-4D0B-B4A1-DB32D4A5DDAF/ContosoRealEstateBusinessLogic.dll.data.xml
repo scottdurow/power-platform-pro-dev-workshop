@@ -5,7 +5,7 @@
   <IntroducedVersion>1.0</IntroducedVersion>
   <FileName>/PluginAssemblies/ContosoRealEstateBusinessLogic-5F53ABAE-DCE0-4D0B-B4A1-DB32D4A5DDAF/ContosoRealEstateBusinessLogic.dll</FileName>
   <PluginTypes>
-    <PluginType AssemblyQualifiedName="ContosoRealEstateBusinessLogic.ReservationOnCreatePreValidation, ContosoRealEstateBusinessLogic, Version=1.0.0.0, Culture=neutral, PublicKeyToken=dd733ef76f012206" PluginTypeId="f01c0404-f460-4d91-820d-4e50d5885948" Name="ContosoRealEstateBusinessLogic.ReservationOnCreatePreValidation">
+    <PluginType AssemblyQualifiedName="ContosoRealEstateBusinessLogic.ReservationOnCreatePreOperation, ContosoRealEstateBusinessLogic, Version=1.0.0.0, Culture=neutral, PublicKeyToken=dd733ef76f012206" PluginTypeId="f01c0404-f460-4d91-820d-4e50d5885948" Name="ContosoRealEstateBusinessLogic.ReservationOnCreatePreOperation">
       <FriendlyName>6eb3845d-9df1-4311-8308-59b42c02c3a7</FriendlyName>
     </PluginType>
   </PluginTypes>

@@ -9,7 +9,7 @@ using System.ComponentModel.Design;
 namespace ContosoRealEstateBusinessLogic.Tests
 {
     [TestClass]
-    public class ReservationCreateUnitTests : ReservationOnCreatePreValidation
+    public class ReservationCreateUnitTests : ReservationOnCreatePreOperation
     {
 
         [TestMethod]
@@ -45,7 +45,7 @@ namespace ContosoRealEstateBusinessLogic.Tests
                 .Returns(new ParameterCollection());
 
             mockLocalPluginContext.Setup(context => context.PluginExecutionContext.MessageName).Returns("Create");
-            mockLocalPluginContext.Setup(context => context.PluginExecutionContext.Stage).Returns(10); // PreValidation
+            mockLocalPluginContext.Setup(context => context.PluginExecutionContext.Stage).Returns(20); // PreOperation
             mockLocalPluginContext.Setup(context => context.PluginExecutionContext.InputParameters).Returns(new ParameterCollection());
             mockLocalPluginContext.Setup(context => context.TracingService).Returns(mockTraceService);
             mockLocalPluginContext.Setup(context => context.OrgSvcFactory).Returns(mockOrganizationServiceFactory.Object);

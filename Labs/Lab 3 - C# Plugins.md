@@ -75,11 +75,11 @@ We will use **Visual Studio** to author our plugin to validate that there isn't 
 
       
 
-1. In the solution explorer, right click on `Plugin1`, and select Rename. Enter `ReservationOnCreatePreValidation.cs`
+1. In the solution explorer, right click on `Plugin1`, and select Rename. Enter `ReservationOnCreatePreOperation.cs`
 
 1. When prompted **Would you like to perform a rename in this project**, select **Yes**.
 
-1. Open the `ReservationOnCreatePreValidation` class, replace with the following code:
+1. Open the `ReservationOnCreatePreOperation` class, replace with the following code:
 
       ```c#
       using ContosoRealEstate.BusinessLogic.Models;
@@ -96,10 +96,10 @@ We will use **Visual Studio** to author our plugin to validate that there isn't 
           /// Plugin development guide: https://docs.microsoft.com/powerapps/developer/common-data-service/plug-ins
           /// Best practices and guidance: https://docs.microsoft.com/powerapps/developer/common-data-service/best-practices/business-logic/
           /// </summary>
-          public class ReservationOnCreatePreValidation : PluginBase
+          public class ReservationOnCreatePreOperation : PluginBase
           {
       
-              public ReservationOnCreatePreValidation() : base(typeof(ReservationOnCreatePreValidation))
+              public ReservationOnCreatePreOperation() : base(typeof(ReservationOnCreatePreOperation))
               {
       
               }
@@ -114,9 +114,17 @@ We will use **Visual Studio** to author our plugin to validate that there isn't 
       
                   var service = localPluginContext.OrgSvcFactory.CreateOrganizationService(null);
                   contoso_Reservation reservation = ((Entity)localPluginContext.PluginExecutionContext.InputParameters["Target"]).ToEntity<contoso_Reservation>();
+                  
                   try
                   {
-                      // check if the listing is available
+                      // Lock the listing to prevent multiple reservations at the same time
+                      service.Update(new contoso_listing
+                      {
+                          Id = reservation.contoso_Listing.Id,
+                          contoso_Lock = Guid.NewGuid().ToString()
+                      }.ToEntity<Entity>());
+                      
+                      // Check if the listing is available
                       var query = new QueryExpression()
                       {
                           EntityName = contoso_Reservation.EntityLogicalName,
@@ -192,7 +200,7 @@ We will use **Visual Studio** to author our plugin to validate that there isn't 
 
 1. Select **Create**.
 
-1. Right click on the **References** folder under the new project -> Migrate **packages.json to Package Reference**.
+1. Right click on the **References** folder under the new project -> Migrate **packages.json to Package Reference** -> Ok.
 
 1. Select **Tools** -> **NuGet Package Manager** -> **Manage NuGet Packages for Solution**.
 
@@ -229,7 +237,7 @@ We will use **Visual Studio** to author our plugin to validate that there isn't 
       namespace ContosoRealEstateBusinessLogic.Tests
       {
           [TestClass]
-          public class ReservationCreateUnitTests : ReservationOnCreatePreValidation
+          public class ReservationCreateUnitTests : ReservationOnCreatePreOperation
           {
       
               [TestMethod]
@@ -265,7 +273,7 @@ We will use **Visual Studio** to author our plugin to validate that there isn't 
                       .Returns(new ParameterCollection());
       
                   mockLocalPluginContext.Setup(context => context.PluginExecutionContext.MessageName).Returns("Create");
-                  mockLocalPluginContext.Setup(context => context.PluginExecutionContext.Stage).Returns(10); // PreValidation
+                  mockLocalPluginContext.Setup(context => context.PluginExecutionContext.Stage).Returns(20); // PreOperation
                   mockLocalPluginContext.Setup(context => context.PluginExecutionContext.InputParameters).Returns(new ParameterCollection());
                   mockLocalPluginContext.Setup(context => context.TracingService).Returns(mockTraceService);
                   mockLocalPluginContext.Setup(context => context.OrgSvcFactory).Returns(mockOrganizationServiceFactory.Object);
@@ -336,6 +344,7 @@ We can now deploy our plugin into Dataverse and test it
 
     1. Message: `Create`
     2. Primary Entity: `contoso_reservation`
+    3. Event Pipeline Stage of Execution: `PreOperation`
 
 12. Select **Register New Step**.    
     ![Register Plugin Step](./assets/register-plugin-step.png)

@@ -12,10 +12,10 @@ namespace ContosoRealEstateBusinessLogic
     /// Plugin development guide: https://docs.microsoft.com/powerapps/developer/common-data-service/plug-ins
     /// Best practices and guidance: https://docs.microsoft.com/powerapps/developer/common-data-service/best-practices/business-logic/
     /// </summary>
-    public class ReservationOnCreatePreValidation : PluginBase
+    public class ReservationOnCreatePreOperation : PluginBase
     {
 
-        public ReservationOnCreatePreValidation() : base(typeof(ReservationOnCreatePreValidation))
+        public ReservationOnCreatePreOperation() : base(typeof(ReservationOnCreatePreOperation))
         {
 
         }
@@ -32,6 +32,13 @@ namespace ContosoRealEstateBusinessLogic
             contoso_Reservation reservation = ((Entity)localPluginContext.PluginExecutionContext.InputParameters["Target"]).ToEntity<contoso_Reservation>();
             try
             {
+                // Lock the listing to prevent multiple reservations at the same time
+                service.Update(new contoso_listing
+                {
+                    Id = reservation.contoso_Listing.Id,
+                    contoso_Lock = Guid.NewGuid().ToString()
+                }.ToEntity<Entity>());
+
                 // check if the listing is available
                 var query = new QueryExpression()
                 {
