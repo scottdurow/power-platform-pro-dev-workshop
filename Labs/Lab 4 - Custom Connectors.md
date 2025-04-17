@@ -15,7 +15,7 @@ Visual Studio makes it easy to create a Web API and deploy it to Azure using the
 
 1. Enter `WeatherForecast` as the **Project name** ➡️ Select the `C:\workshop\` as the location of your project ➡️ Select **Next**.
 
-1. Select **.NET 8.0** (Install SDK and latest version of Visual Studio 2022 if you do not see this option) ➡️ **Create**.
+1. Select **.NET 8.0** (Install SDK and latest version of Visual Studio 2022 if you do not see this option) , Set **Configure for HTTPS**, **Enable OpenAPI support**, and **Use controllers**➡️ **Create**.
 
 1. Select **Tools** ➡️ **NuGet Package Manager** ➡️ **Manage NuGet Packages for solution**. 
 
@@ -53,7 +53,7 @@ Visual Studio makes it easy to create a Web API and deploy it to Azure using the
    ```
    app.UseSwagger(c =>
    {
-       c.SerializeAsV2 = true;
+       c.OpenApiVersion = Microsoft.OpenApi.OpenApiSpecVersion.OpenApi2_0;
    });
    ```
 

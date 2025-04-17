@@ -29,7 +29,7 @@ export class ImageGrid implements ComponentFramework.ReactControl<IInputs, IOutp
         const isTestHarness = context.userSettings.userId === '{00000000-0000-0000-0000-000000000000}';
 
         // Check if the dataset has changed or if the user is the test harness
-        const datasetChanged = !this.images || context.updatedProperties.indexOf('dataset') > -1;
+        const datasetChanged = !this.images || context.updatedProperties.includes('dataset');
 
         if (datasetChanged || isTestHarness) {
             // Get the images dataset from the PCF context
@@ -41,10 +41,8 @@ export class ImageGrid implements ComponentFramework.ReactControl<IInputs, IOutp
             )?.name;
 
             // In Power Pages the column data type is a string not Image
-            if (!imageValueColumn)
-                imageValueColumn = dataset.columns.find(
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    (column) => (column as any).attributes?.AttributeTypeName?.Value === 'ImageType',
+            imageValueColumn ??= dataset.columns.find(
+                    (column) => (column as PowerAppsColumn).attributes?.AttributeTypeName?.Value === 'ImageType',
                 )?.name;
 
             if (imageValueColumn) {
@@ -52,16 +50,15 @@ export class ImageGrid implements ComponentFramework.ReactControl<IInputs, IOutp
                 this.images = dataset.sortedRecordIds.map((id) => {
                     const record = dataset.records[id];
                     const imageValue =
-                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                        imageValueColumn != null ? (record.getValue(imageValueColumn) as any) : undefined;
+                        imageValueColumn != null ? (record.getValue(imageValueColumn) as string | ImageValueWithUrls) : undefined;
                     let fileContent = '';
 
                     if (isTestHarness) {
                         // Support the PCF tester where the image is a string
-                        fileContent = imageValue;
-                    } else if (imageValue?.fileUrl) {
+                        fileContent = imageValue as string;
+                    } else if (typeof imageValue === 'object' && imageValue?.fileUrl) {
                         fileContent = imageValue.fileUrl;
-                    } else if (imageValue?.thumbnailUrl) {
+                    } else if (typeof imageValue === 'object' && imageValue?.thumbnailUrl) {
                         fileContent = imageValue.thumbnailUrl + '&Full=true';
                     }
 
@@ -115,4 +112,16 @@ export class ImageGrid implements ComponentFramework.ReactControl<IInputs, IOutp
     public destroy(): void {
         // Add code to cleanup control if necessary
     }
+}
+
+interface PowerAppsColumn extends ComponentFramework.PropertyHelper.DataSetApi.Column {
+    attributes?: {
+        AttributeTypeName?: {
+            Value?: string;
+        };
+    };
+}
+interface ImageValueWithUrls {
+    fileUrl?: string;
+    thumbnailUrl?: string;
 }

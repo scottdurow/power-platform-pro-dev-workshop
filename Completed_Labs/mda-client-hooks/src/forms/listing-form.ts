@@ -9,7 +9,7 @@ export async function OnLoad(context: Xrm.Events.EventContext): Promise<void> {
   console.log('OnLoad hook' + formContext.data.entity.getEntityName());
   formContext
     .getAttribute(contoso_listingAttributes.contoso_features)
-    .addOnChange(features_onchange);
+    ?.addOnChange(features_onchange);
   // Run the onchange event to show/hide the number of bathrooms field
   features_onchange(context as Xrm.Events.Attribute.ChangeEventContext);
 }

@@ -66,7 +66,7 @@ In Dataverse, you now have a solution that contains the metadata for tables and 
        <Exec Command="npm ci" Condition="'$(Configuration)' == 'Debug'"/>
        <Exec Command="npm install" Condition="'$(Configuration)' == 'Release'"/>
        <Exec Command="npm run build:dev " Condition="'$(Configuration)' == 'Debug'"/>
-       <Exec Command="npm run build:prod" Condition="'$(Configuration)' == 'Release'"/>
+       <Exec Command="npm run build" Condition="'$(Configuration)' == 'Release'"/>
      </Target>
    
    </Project>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import * as React from 'react';
 import { FiMaximize2 } from 'react-icons/fi'; // Import the fullscreen icon
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
@@ -28,12 +29,32 @@ export const ImageGridDetail = ({ width, height, images }: ImageSliderProps) => 
 
         if (swiperNode) {
             if (document.fullscreenElement) {
-                document.exitFullscreen();
+                void document.exitFullscreen();
             } else {
-                swiperNode.requestFullscreen();
+                void swiperNode.requestFullscreen();
             }
         }
     };
+
+    // Helper function to determine dimension
+    const getDimension = (value: number): string => {
+        return value !== undefined && !isNaN(value) && value !== -1 ? `${value}px` : '100vh';
+    };
+
+    // Create image slides once to reuse in both swipers
+    const isValidImageUrl = (url: string): boolean => {
+        const pattern = /^(https?:\/\/|data:image\/)/;
+        return pattern.test(url);
+    };
+
+    const renderSlides = () => 
+        images
+            ?.filter(image => isValidImageUrl(image.src))
+            ?.map((image, index) => (
+                <SwiperSlide key={index}>
+                    <img src={image.src} alt={image.title} />
+                </SwiperSlide>
+            ));
 
     return (
         <div
@@ -41,8 +62,8 @@ export const ImageGridDetail = ({ width, height, images }: ImageSliderProps) => 
             style={{
                 margin: '0 auto',
                 position: 'relative',
-                width: width !== undefined && !isNaN(width) && width !== -1 ? `${width}px` : '100vh',
-                height: height !== undefined && !isNaN(height) && height !== -1 ? `${height}px` : '100vh',
+                width: getDimension(width),
+                height: getDimension(height),
             }}
         >
             <button
@@ -61,15 +82,7 @@ export const ImageGridDetail = ({ width, height, images }: ImageSliderProps) => 
                 className="image-grid"
                 zoom={true}
             >
-                {
-                    // Map the images to the SwiperSlide component and populate the src attribute with the image URL
-                    images &&
-                        images.map((image, index) => (
-                            <SwiperSlide key={index}>
-                                <img src={image.src} />
-                            </SwiperSlide>
-                        ))
-                }
+                {renderSlides()}
             </Swiper>
             <Swiper
                 onSwiper={setThumbsSwiper}
@@ -81,15 +94,7 @@ export const ImageGridDetail = ({ width, height, images }: ImageSliderProps) => 
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="image-grid-thumbs"
             >
-                {
-                    // Map the images to the SwiperSlide component and populate the src attribute with the image URL
-                    images &&
-                        images.map((image, index) => (
-                            <SwiperSlide key={index}>
-                                <img src={image.src} />
-                            </SwiperSlide>
-                        ))
-                }
+                {renderSlides()}
             </Swiper>
         </div>
     );

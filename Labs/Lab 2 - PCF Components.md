@@ -4,25 +4,7 @@ Time to complete: **~45 minutes**
 
 Welcome to this code-component (PCF) Deployment and Configuration lab - you'll be creating a image slide code component and deploying it to Power Apps.
 
-## ✅Task 1: Enable Power Apps Component Framework
-
-1. Inside Power Apps, select the **Gear icon** on the top right of the window and then select **Admin center** link.  
-   
-   > [!NOTE]
-   > You can also select the 'kebab' menu from the environment picker and select **Go to admin center**.
-   
-1. Select **Environments** from the left navigation.
-
-1. Select the **more ellipsis icon** against your Developer Environment, and then select the **Settings** menu item.  
-   
-1. Expand the **Product section** and select the **Features** link.  
-   
-1. Scroll down to the **Power Apps component framework for canvas apps**, and toggle the feature **On**.  
-   
-1. Scroll down to the bottom of the page and select **Save**.  
-
-
-## ✅Task 2: Authorize PAC CLI
+## ✅Task 1: Authorize PAC CLI
 
 The Power Platform CLI allows us to perform many operations on the Power Platform. We will use it to quickly create a code component project using either a field or dataset template. 
 
@@ -80,8 +62,7 @@ The Power Platform CLI allows us to perform many operations on the Power Platfor
 17. To ensure that you are connected to the correct environment, at the terminal type `pac org who`
     This will show the current connection and environment selected.  
 
-
-## ✅Task 3 Initialize the pcf project
+## ✅Task 2 Initialize the pcf project
 
 We are creating the image slider, it will be bound to a dataset of images, so we use the `pac pcf init` command to create a TypeScript project using the dataset template. You can also use the field template for a single value control.
 
@@ -170,7 +151,7 @@ An automatically generated file `ImageGrid\generated\ManifestTypes.d.ts` is adde
 > [!IMPORTANT]
 >Do not modify the contents of the `generated` and `out` folders directly. They'll be overwritten as part of the build process with each build.
 
-## ✅Task 04 - Adding additional resources
+## ✅Task 3 - Adding additional resources
 
 Our manifest contains references to resource string keys so that we can provide multiple language translations if required. Our code component will also use a `CSS` file for styling. These additional files must be referenced in the resources section.
 
@@ -332,7 +313,7 @@ Our manifest contains references to resource string keys so that we can provide 
 
 4. **Save** the files.
 
-## ✅Task 09 - Add the code 
+## ✅Task 4 - Add the code 
 
 We now add the TypeScript code for our component. TypeScript is similar to JavaScript and in fact is based on the most recent specifications of JavaScript. It has the advantage that it is statically typed and provides modern programming features that are not supported by JavaScript running inside the browser. When the code is built, it is 'transpiled' into JavaScript so that it can run. More information: [TypeScript and JavaScript](https://docs.microsoft.com/en-us/powerapps/developer/component-framework/code-components-best-practices#typescript-and-javascript)
 
@@ -341,12 +322,13 @@ We now add the TypeScript code for our component. TypeScript is similar to JavaS
 1. Install the swiper and icon library by running at the PowerShell terminal:
 
    ```
-   npm install swiper react-icons
+   npm install swiper@11.2.1 react-icons@5.4.0
    ```
 
 2. Right click on the `ImageGrid` folder and select **New File**. Create a file named `ImageGridDetail.tsx` with the following code:
 
    ```typescript
+   /* eslint-disable @typescript-eslint/no-unsafe-assignment */
    import * as React from 'react';
    import { FiMaximize2 } from 'react-icons/fi'; // Import the fullscreen icon
    import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
@@ -377,12 +359,32 @@ We now add the TypeScript code for our component. TypeScript is similar to JavaS
    
            if (swiperNode) {
                if (document.fullscreenElement) {
-                   document.exitFullscreen();
+                   void document.exitFullscreen();
                } else {
-                   swiperNode.requestFullscreen();
+                   void swiperNode.requestFullscreen();
                }
            }
        };
+   
+       // Helper function to determine dimension
+       const getDimension = (value: number): string => {
+           return value !== undefined && !isNaN(value) && value !== -1 ? `${value}px` : '100vh';
+       };
+   
+       // Create image slides once to reuse in both swipers
+       const isValidImageUrl = (url: string): boolean => {
+           const pattern = /^(https?:\/\/|data:image\/)/;
+           return pattern.test(url);
+       };
+   
+       const renderSlides = () => 
+           images
+               .filter(image => isValidImageUrl(image.src))
+               .map((image, index) => (
+                   <SwiperSlide key={index}>
+                       <img src={image.src} alt={image.title} />
+                   </SwiperSlide>
+               ));
    
        return (
            <div
@@ -390,8 +392,8 @@ We now add the TypeScript code for our component. TypeScript is similar to JavaS
                style={{
                    margin: '0 auto',
                    position: 'relative',
-                   width: width !== undefined && !isNaN(width) && width !== -1 ? `${width}px` : '100vh',
-                   height: height !== undefined && !isNaN(height) && height !== -1 ? `${height}px` : '100vh',
+                   width: getDimension(width),
+                   height: getDimension(height),
                }}
            >
                <button
@@ -410,15 +412,7 @@ We now add the TypeScript code for our component. TypeScript is similar to JavaS
                    className="image-grid"
                    zoom={true}
                >
-                   {
-                       // Map the images to the SwiperSlide component and populate the src attribute with the image URL
-                       images &&
-                           images.map((image, index) => (
-                               <SwiperSlide key={index}>
-                                   <img src={image.src} />
-                               </SwiperSlide>
-                           ))
-                   }
+                   {renderSlides()}
                </Swiper>
                <Swiper
                    onSwiper={setThumbsSwiper}
@@ -430,15 +424,7 @@ We now add the TypeScript code for our component. TypeScript is similar to JavaS
                    modules={[FreeMode, Navigation, Thumbs]}
                    className="image-grid-thumbs"
                >
-                   {
-                       // Map the images to the SwiperSlide component and populate the src attribute with the image URL
-                       images &&
-                           images.map((image, index) => (
-                               <SwiperSlide key={index}>
-                                   <img src={image.src} />
-                               </SwiperSlide>
-                           ))
-                   }
+                   {renderSlides()}
                </Swiper>
            </div>
        );
@@ -482,7 +468,7 @@ We now add the TypeScript code for our component. TypeScript is similar to JavaS
            const isTestHarness = context.userSettings.userId === '{00000000-0000-0000-0000-000000000000}';
    
            // Check if the dataset has changed or if the user is the test harness
-           const datasetChanged = !this.images || context.updatedProperties.indexOf('dataset') > -1;
+           const datasetChanged = !this.images || context.updatedProperties.includes('dataset');
    
            if (datasetChanged || isTestHarness) {
                // Get the images dataset from the PCF context
@@ -494,10 +480,8 @@ We now add the TypeScript code for our component. TypeScript is similar to JavaS
                )?.name;
    
                // In Power Pages the column data type is a string not Image
-               if (!imageValueColumn)
-                   imageValueColumn = dataset.columns.find(
-                       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                       (column) => (column as any).attributes?.AttributeTypeName?.Value === 'ImageType',
+               imageValueColumn ??= dataset.columns.find(
+                       (column) => (column as PowerAppsColumn).attributes?.AttributeTypeName?.Value === 'ImageType',
                    )?.name;
    
                if (imageValueColumn) {
@@ -505,16 +489,15 @@ We now add the TypeScript code for our component. TypeScript is similar to JavaS
                    this.images = dataset.sortedRecordIds.map((id) => {
                        const record = dataset.records[id];
                        const imageValue =
-                           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                           imageValueColumn != null ? (record.getValue(imageValueColumn) as any) : undefined;
+                           imageValueColumn != null ? (record.getValue(imageValueColumn) as string | ImageValueWithUrls) : undefined;
                        let fileContent = '';
    
                        if (isTestHarness) {
                            // Support the PCF tester where the image is a string
-                           fileContent = imageValue;
-                       } else if (imageValue?.fileUrl) {
+                           fileContent = imageValue as string;
+                       } else if (typeof imageValue === 'object' && imageValue?.fileUrl) {
                            fileContent = imageValue.fileUrl;
-                       } else if (imageValue?.thumbnailUrl) {
+                       } else if (typeof imageValue === 'object' && imageValue?.thumbnailUrl) {
                            fileContent = imageValue.thumbnailUrl + '&Full=true';
                        }
    
@@ -570,13 +553,25 @@ We now add the TypeScript code for our component. TypeScript is similar to JavaS
        }
    }
    
+   interface PowerAppsColumn extends ComponentFramework.PropertyHelper.DataSetApi.Column {
+       attributes?: {
+           AttributeTypeName?: {
+               Value?: string;
+           };
+       };
+   }
+   interface ImageValueWithUrls {
+       fileUrl?: string;
+       thumbnailUrl?: string;
+   }
+   
    ```
 
    
 
 4. Make sure all files are **Saved**.
 
-## ✅Task 10 - Build and test using the test harness
+## ✅Task 5 - Build and test using the test harness
 
 The pcf project comes with a simple test harness that allows you to run and test your pcf component. It does not provide a full set of features but is good for simple debugging.
 
@@ -615,7 +610,7 @@ While the test harness is suitable for testing simple code components, the follo
 5. Model-driven apps specifics such as field level security, read-only behavior, dataset selection API, and integration with the model-driven apps command bar.
 6. Other context APIs such as [Navigation](https://docs.microsoft.com/en-us/powerapps/developer/component-framework/reference/navigation) and [Utility](https://docs.microsoft.com/en-us/powerapps/developer/component-framework/reference/utility) methods.
 
-## ✅Task 11 - Debugging in the test harness
+## ✅Task 6 - Debugging in the test harness
 
 Try the following:
 
@@ -635,14 +630,14 @@ More information: [Debugging a code component](https://docs.microsoft.com/en-us/
 > [!IMPORTANT]
 >Using `npm start` and `npm start watch` builds your code component optimized for development and debugging. This code would not normally be deployed to Microsoft Dataverse. More information: [Code Components Application Lifecycle Management](https://docs.microsoft.com/en-us/powerapps/developer/component-framework/code-components-alm). In the next lab we will package the code component for importing into Microsoft Dataverse and select different build modes for development vs production.
 
-## ✅Task 12 - Stop the test harness
+## ✅Task 7 - Stop the test harness
 
 To stop the test harness and remove the forwarded port, simply use `Ctrl + C` in the terminal that is watching for changes. 
 
 If you now refresh the test harness page, you will see the **HTTP 404 Not Found** error page.
 
 
-# ✅Task 03 - Deploying to Microsoft Dataverse during testing and development
+# ✅Task 8 - Deploying to Microsoft Dataverse during testing and development
 
 So far we have used the test harness to debug the code component. This has several limitations and code components should always be deployed to Microsoft Dataverse to fully test. In some cases (e.g. when using advanced features such as the `WebApi` or complex component lifecycles), deploying and configuring inside Dataverse is the only way to test your component. 
 
@@ -700,11 +695,11 @@ You should have authorized the **Microsoft Power Platform CLI** against your env
 
    The project will build and a temporary solution be create to deploy the code component.
 
-4. Open [make.powerapps.com](https://make.powerapps.com) and navigate to **Solutions**. You should see a temporary solution named **PowerAppTools_samples** in your environment that was created as part of the push process. The `ImageGrid` code component will be added to this solution. 
+4. Open [make.powerapps.com](https://make.powerapps.com) and navigate to **Solutions**.
 
 5. We need to add this component to our main solution. Open the **Power Platform Pro Developer Workshop** solution in **make.powerapps.com**.
 
-6. Select **Add existing** -> **Developer** -> **Custom control** -> Search for `contoso` -> Select the `contoso_Contoso.ImageGrid` -> **Add**.     
+6. Select **Add existing** -> **More** -> **Developer** -> **Custom control** -> Search for `contoso` -> Select the `contoso_Contoso.ImageGrid` -> **Add**.     
    ![Add Custom Control To Solution](./assets/add-custom-control-to-solution.png)
 
 ## 👉Use the component in a Canvas App
@@ -738,7 +733,7 @@ You should have authorized the **Microsoft Power Platform CLI** against your env
 
 More information: [Code Component Application Lifecycle Management (ALM)](https://docs.microsoft.com/en-us/powerapps/developer/component-framework/code-components-alm).  
 
-# ✅Task 05 - Configuring local debugging
+# ✅Task 9 - Configuring local debugging
 
 Now that you have your code component running inside Canvas Apps, you will likely need to debug it. Currently the code component will be deployed in the production build state.
 

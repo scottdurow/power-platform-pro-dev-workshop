@@ -112,9 +112,9 @@ You should always use a linter with your TypeScript projects to catch common iss
    ```
 
    Answer with the following:
-
-   - How would you like to use ESLint? · **problems**
-   - What type of modules does your project use? · **JavaScript Modules (Import/export) (esm)**
+   - What do you want to lint? **JavaScript**
+   - How would you like to use ESLint? **To check syntax and find problems**
+   - What type of modules does your project use? · **JavaScript Modules (Import/export)**
    - Which framework does your project use? · **None of these**
    - Does your project use TypeScript? · **Yes**
    - Where does your code run? · **Browser**
@@ -278,7 +278,7 @@ export async function OnLoad(context: Xrm.Events.EventContext): Promise<void> {
   console.log('OnLoad hook' + formContext.data.entity.getEntityName());
   formContext
     .getAttribute(contoso_listingAttributes.contoso_features)
-    .addOnChange(features_onchange);
+    ?.addOnChange(features_onchange);
   // Run the onchange event to show/hide the number of bathrooms field
   features_onchange(context as Xrm.Events.Attribute.ChangeEventContext);
 }
@@ -314,13 +314,14 @@ function features_onchange(
 }
 
 ```
+After you have pasted this in, you may see it underlined in red - this is because the indentation does not match the prettier styles we configured. You can fix by opening **View** -> **Command Palette** and then using the VS Code command `ESLint: Fix all auto-fixable Problems` - if you assigned a keyboard short cut earlier - you can also use this.
 
 If you type this in manually, you will see the intellisense for the Xrm types that is provided by the module `@types/xrm`.
 
-If you make any changes to this file you may start to see red underlined areas that indicate ESLint formatting issues. Try changing the `const` to `var` - and see the warning that is shown.
+Now try changing the `const` to `var` - and see the warning that is shown.
 ![Eslint No Var](./assets/eslint-no-var.png)
 
-Use the VS Code command `ESLint: Fix all auto-fixable Problems` - if you assigned a keyboard short cut earlier - you can also use this.
+Use the VS Code command again `ESLint: Fix all auto-fixable Problems` - if you assigned a keyboard short cut earlier - you can also use this.
 
 > [!TIP]
 >
@@ -406,7 +407,7 @@ Unit tests are a powerful way of ensuring that your code works before deploying 
    npm install --save-dev xrm-mock
    ```
 
-1. We can now add a unit test at `forms/__tests__/unit.listing-form.test.ts`
+1. We can now add a unit test at `src/forms/__tests__/unit.listing-form.test.ts`
 
    ```typescript
    import { contoso_listingAttributes } from '../../dataverse-gen/entities/contoso_listing';
