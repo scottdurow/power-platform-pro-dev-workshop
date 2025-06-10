@@ -100,29 +100,9 @@ Visual Studio makes it easy to create a Web API and deploy it to Azure using the
 1. Update the Get function to be:
 
      ```c#
-     [HttpGet(Name = "GetWeatherForecast")]
-     [SwaggerOperation(Summary = "Get Weather Forecast",
-         Description = "Get a weather forecast for a specified city",
-         OperationId = "GetWeatherForecast",
-         Tags = ["Weather"])]
-     public ForecastResponse Get([FromQuery, SwaggerParameter("The city to get the forecast for"), Required] string City)
-     {
-         var response = new ForecastResponse
-         {
-             WeatherForecast = Enumerable.Range(1, 5).Select(index => new WeatherForecast
-             {
-                 Date = DateTime.Now.AddDays(index),
-                 //DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                 TemperatureC = Random.Shared.Next(-20, 55),
-                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-             }).ToArray()
-         };
-     
-         return response;
-     }
-     
+     d
      ```
-
+     
 1. **Save** all your edits.
 > [!NOTE] 
 > In your projects, you will want to implement security. You can find instructions on how to do this using [PowerPlatformAdvocates/Workshops/CustomConnectorInVisualStudio](https://github.com/microsoft/PowerPlatformAdvocates/tree/main/Workshops/CustomConnectorInVisualStudio)
@@ -190,46 +170,51 @@ Now that we have our custom connector working and the web api running inside Vis
 
 1. Enter **Weather agent** as the name -> **Create**.
 
-1. Select **Actions** -> **Add an action**.
+1. Select **Tools** -> **Add a tool**.
 
-1. Select **...** -> **Custom connector**.
+1. Select **...** -> **Connector**.
 
 1. Enter `Get Weather Forecast` in the search, select the **Get Weather Forecast** connector. Make sure you select your custom connector.     
-   ![Select Connector](./assets/select-connector.png)
 
-1. On the **Next** page, select Copilot author authentication since we do not need the user to be authenticated. In your scenarios you may need the user to be authenticated with your Web API to ensure that they have access. See [PowerPlatformAdvocates/Workshops/CustomConnectorInVisualStudio](https://github.com/microsoft/PowerPlatformAdvocates/tree/main/Workshops/CustomConnectorInVisualStudio)    
-   ![Agent Connector Auth](./assets/agent-connector-auth.png)
+   ![Add Tool](./assets/add-tool-custom-connector.png)
 
-1. Expand **Inputs and outputs**.
+1. On the next page, Select **Add and configure**
+
+1. On the **Next** page, select **Additional details** -> **Copilot author authentication** since we do not need the user to be authenticated. In your scenarios you may need the user to be authenticated with your Web API to ensure that they have access. See [PowerPlatformAdvocates/Workshops/CustomConnectorInVisualStudio](https://github.com/microsoft/PowerPlatformAdvocates/tree/main/Workshops/CustomConnectorInVisualStudio)    
+   ![image-20250610152147322](./assets/agent-connector-auth-tool.png)
+
+1. 
+
+1. Expand **Completion -> Advanced -> Outputs**.
 
 1. Select **Outputs** -> `weatherForecast` -> **Edit**.
 
-   1. **Display name:** Weather Forecast
+    1. **Display name:** Weather Forecast
 
-   1. **Description:** List of temperatures for the city by date   
-      ![Set inputs outputs](./assets/set-inputs-outputs.png)
-   
-   1. Select **Add action**
+    1. **Description:** List of temperatures for the city by date   
+       ![agent connector output tool](./assets/agent-connector-output-tool.png)
 
-   1. Select **Settings** -> **Generative AI** -> **Generative**
+    1. Select **Save**
 
-   1. Select **Medium - More balanced** as the moderation level.
+    1. Select **Settings** -> **Generative AI** -> **Use generative AI orchestration for your agent's responses?** -> **Yes**
 
-   1. Select **Save** -> Close.
+    1. Select **Medium** as the moderation level.
 
-   1. Open Test by toggling the Test button, and in the test panel on the right, enter the query:
+    1. Select **Save** -> Close.
 
-      > What is the weather forecast for Aberdeen?
+    1. Open Test by toggling the Test button, and in the test panel on the right, enter the query:
 
-   1. You will see the activity map show the call to your custom connector.  
-      ![Test Weather Agent](./assets/test-weather-agent.png)
-   
-   1. You can also then ask refining questions and the agent will generate an answer from the connector response.    
-      ![Weather Response](./assets/weather-response.png)
-   
-   1. Now **stop the debugging** session in Visual Studio, and **close** Visual Studio.
-   
-   ## 🥳Congratulations!
-   
-   Now that you have completed this lab you have learned how to create a Web Api written in C# and interact with it via a Power Platform Custom Connector inside Copilot Studio.
+       > What is the weather forecast for Aberdeen?
+
+    1. You will see the activity map show the call to your custom connector.  
+       ![Test Weather Agent](./assets/test-weather-agent.png)
+
+    1. You can also then ask refining questions and the agent will generate an answer from the connector response.    
+       ![Weather Response](./assets/weather-response.png)
+
+    1. Now **stop the debugging** session in Visual Studio, and **close** Visual Studio.
+
+    ## 🥳Congratulations!
+
+    Now that you have completed this lab you have learned how to create a Web Api written in C# and interact with it via a Power Platform Custom Connector inside Copilot Studio.
 

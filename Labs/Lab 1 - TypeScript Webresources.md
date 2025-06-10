@@ -215,6 +215,11 @@ One of the challenges with writing TypeScript code for Model Driven Apps, is tha
    You can find your organization URL by opening **make.powerapps.com,** selecting your developer environment, and selecting the **gear icon** -> **Session Details**.   
    ![Instance Url](./assets/instance-url.png)
 
+   Note: If authorization fails, and your machine is joined to the same domain as your Power Platform environment you can simply use:
+   ```powershell
+   npx dataverse-auth@2 https://yourorg.crm.dynamics.com
+   ```
+
 1. Follow the instructions and open https://microsoft.com/devicelogin in your browser profile, and enter the code given.
 
 1. Consent to the login when prompted. You will see a message saying you are successfully authenticated with your username.
@@ -369,7 +374,7 @@ Unit tests are a powerful way of ensuring that your code works before deploying 
 1. At the PowerShell command line run:
 
    ```powershell
-   npx jest --init
+   npm init jest@latest
    ```
 
    Answer with the following:
@@ -568,9 +573,11 @@ You can use **Edge's F12 developer tools** to debug our web resources, however f
 11. Select **Save**.     
     ![AutoResponder Client Hooks](./assets/auto-responder-client-hooks.png)
 
-12. Now that you have the **AutoResponder** rules running you will need to first clear the cache in the browser and reload the page containing the code component. In Edge, open developer tools using `Ctrl + Shift + I`, and then right-click the **Refresh** > **Empty cache and hard refresh**.    
-    ![Hard Refresh](./assets/hard-refresh-mda.png)
-
+12. Now that you have the **AutoResponder** rules running you will need to first clear the cache in the browser and reload the page containing the code component. In Edge, open developer tools using `Ctrl + Shift + I`, and then select the **Application tab**.
+    Under the **Storage** -> **Cache storage**, locate the `WebResources` item, enter `mda-client-hooks` in the **search bar,** and then right click on the **Webresource** with the name similar to `%7b000000002040653%7d/webresources/contoso_/portal-admin/mda-client-hooks.js` -> **Delete**  
+    
+    ![delete-webresource-cache-mda](./assets/delete-webresource-cache-mda.png)
+    
 13. In the developer tools use `Ctrl + P`, and type `listing-form.ts`. Select the `listing-form.ts` from the list. This will load the TypeScript version of the JavaScript and allow you to debug using breakpoints.    
     ![Load Webresource Dev Tools](./assets/load-webresource-dev-tools.png)
 

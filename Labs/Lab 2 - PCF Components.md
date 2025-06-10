@@ -444,7 +444,7 @@ We now add the TypeScript code for our component. TypeScript is similar to JavaS
    export class ImageGrid implements ComponentFramework.ReactControl<IInputs, IOutputs> {
        private theComponent: ComponentFramework.ReactControl<IInputs, IOutputs>;
        private notifyOutputChanged: () => void;
-       private images: ISliderPhoto[];
+       private images: ISliderPhoto[] = [];
    
        /**
         * Used to initialize the control instance. Controls can kick off remote server calls and other initialization actions here.
