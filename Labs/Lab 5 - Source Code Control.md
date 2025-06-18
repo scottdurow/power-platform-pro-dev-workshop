@@ -25,7 +25,7 @@ In Dataverse, you now have a solution that contains the metadata for tables and 
    1. If you open the folder `solution\PowerPlatformProDeveloperWorkshop\src\WebResources\contoso_\portal-admin` you'll see the JavaScript webresource. This should always be built by the source TypeScript rather than stored in source control.
    1. If you open the controls folder `solution\PowerPlatformProDeveloperWorkshop\src\Controls\contoso_Contoso.ImageGrid` you will see the bundle.js which is the transpiled TypeScript for the PCF component. We don't want to add this to source code control since it will always be built from the latest source.
 
-1. Notice there is a project file named `PowerPlatformProDeveloperWorkshop.cdsproj`. This file allows us to build the solution from it's component parts, but we need to add configuration on how to build the source TypeScript for the Web resource and the PCF, and C# for the Plugin.
+1. Notice there is a project file named `PowerPlatformProDeveloperWorkshop.cdsproj`. This file allows us to build the solution from its component parts, but we need to add configuration on how to build the source TypeScript for the Web resource and the PCF, and C# for the Plugin.
 
 1. First we add configuration to build the custom control. At the PowerShell terminal in VS Code:
 
